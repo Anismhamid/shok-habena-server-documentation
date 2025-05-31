@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Shok Habena Market - API Documentation</title>
+		<style>
+			:root {
+				--primary: #2c3e50;
+				--secondary: #34495e;
+				--accent: #e67e22;
+				--light: #ecf0f1;
+				--dark: #2c3e50;
+				--success: #27ae60;
+				--danger: #e74c3c;
+			}
+			body {
+				font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+				line-height: 1.6;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				background-color: var(--light);
+				color: var(--dark);
+			}
+			#sidebar {
+				width: 280px;
+				background-color: var(--primary);
+				color: white;
+				padding: 20px;
+				height: 100vh;
+				position: fixed;
+				overflow-y: auto;
+				padding-bottom: 30px;
+				padding-bottom: 100px;
+			}
+			#sidebar h2 {
+				color: var(--accent);
+				border-bottom: 2px solid var(--accent);
+			}
+			#sidebar a {
+				color: var(--light);
+				text-decoration: none;
+				display: block;
+				padding: 8px 0;
+				transition: all 0.3s ease;
+			}
+			#sidebar a:hover {
+				color: var(--accent);
+				padding-left: 5px;
+			}
+			#sidebar .submenu {
+				padding-left: 15px;
+				border-left: 1px solid rgba(255, 255, 255, 0.1);
+			}
+			#content {
+				margin-left: 320px;
+				padding: 30px;
+				max-width: 900px;
+			}
+			h1,
+			h2,
+			h3 {
+				color: var(--primary);
+			}
+			h1 {
+				border-bottom: 3px solid var(--accent);
+				padding-bottom: 10px;
+			}
+			h2 {
+				margin-top: 40px;
+				border-left: 4px solid var(--accent);
+				padding-left: 10px;
+			}
+			h3 {
+				margin-top: 25px;
+				color: var(--secondary);
+			}
+			.badge {
+				display: inline-block;
+				padding: 3px 8px;
+				border-radius: 4px;
+				font-size: 12px;
+				font-weight: bold;
+				margin-right: 5px;
+			}
+			.badge.get {
+				background: #61affe;
+				color: #000;
+			}
+			.badge.post {
+				background: #49cc90;
+				color: #000;
+			}
+			.badge.put {
+				background: #fca130;
+				color: #000;
+			}
+			.badge.patch {
+				background: #50e3c2;
+				color: #000;
+			}
+			.badge.delete {
+				background: #f93e3e;
+				color: #fff;
+			}
+			.endpoint {
+				background-color: white;
+				border-radius: 8px;
+				padding: 20px;
+				margin: 20px 0;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+				border-left: 4px solid var(--accent);
+			}
+			.endpoint-header {
+				display: flex;
+				align-items: center;
+				margin-bottom: 15px;
+			}
+			.endpoint-title {
+				flex-grow: 1;
+			}
+			.endpoint-method {
+				font-weight: bold;
+			}
+			.endpoint-url {
+				background-color: #f5f5f5;
+				padding: 5px 10px;
+				border-radius: 4px;
+				font-family: monospace;
+				word-break: break-all;
+			}
+			.permissions {
+				margin: 10px 0;
+				padding: 10px;
+				background-color: #f8f9fa;
+				border-radius: 4px;
+				font-size: 14px;
+			}
+			.permissions span {
+				font-weight: bold;
+				color: var(--accent);
+			}
+			code {
+				padding: 2px 4px;
+				border-radius: 4px;
+				font-family: monospace;
+				font-size: 14px;
+			}
+			pre {
+				background-color: #292d3e;
+				color: #f8f8f2;
+				padding: 15px;
+				border-radius: 6px;
+				overflow-x: auto;
+				font-size: 14px;
+				line-height: 1.5;
+			}
+			table {
+				border-collapse: collapse;
+				width: 100%;
+				margin: 20px 0;
+				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+			}
+			th,
+			td {
+				border: 1px solid #ddd;
+				padding: 12px;
+				text-align: left;
+			}
+			th {
+				background-color: var(--primary);
+				color: white;
+			}
+			tr:nth-child(even) {
+				background-color: #f2f2f2;
+			}
+			.response-example {
+				margin-top: 15px;
+			}
+			.response-example h4 {
+				margin-bottom: 10px;
+				color: var(--secondary);
+			}
+			.note {
+				background-color: #fff8e1;
+				border-left: 4px solid #ffc107;
+				padding: 10px;
+				margin: 15px 0;
+				font-size: 14px;
+			}
+			@media (max-width: 768px) {
+				body {
+					flex-direction: column;
+				}
+				#sidebar {
+					width: 100%;
+					height: auto;
+					position: relative;
+				}
+				#content {
+					margin-left: 0;
+					padding: 20px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="sidebar">
+			<h2>Shok Habena Market API</h2>
+			<a href="#overview">Overview</a>
+			<a href="#features">Features</a>
+			<a href="#technologies">Technologies</a>
+
+			<h3>API Routes</h3>
+			<a href="#users">Users</a>
+			<div class="submenu">
+				<a href="#user-registration">Registration</a>
+				<a href="#user-login">Login</a>
+				<a href="#google-auth-verification">Google OAuth Verification</a>
+				<a href="#google-login-register">Google Login/Register</a>
+				<a href="#get-all-users">Get All Users</a>
+				<a href="#get-single-user-by-id">Get Single User by ID</a>
+				<a href="#update-user-role">Update User Role</a>
+				<a href="#complete-user-data">Complete User Data</a>
+				<a href="#change-user-password">Change User Password</a>
+				<a href="#delete-user">Delete User</a>
+			</div>
+
+			<a href="#products">Products</a>
+			<div class="submenu">
+				<a href="#get-all-products">Get All Products</a>
+				<a href="#create-product">Create Product</a>
+				<a href="#get-specific-products-by-name">Get Specific Product by Name</a>
+				<a href="#update-product-by-name">Update Product by Name</a>
+				<a href="#delete-product">Delete Product</a>
+				<a href="#get-products-by-category">Get Products by Category</a>
+			</div>
+
+			<a href="#cart">Cart</a>
+			<div class="submenu">
+				<a href="#add-product-to-cart">Add Product to Cart</a>
+				<a href="#get-current-user-cart">Get Current User Cart</a>
+				<a href="#get-all-carts">Get All Carts (Admin Only)</a>
+				<a href="#delete-product-from-cart">Delete Product from Cart</a>
+			</div>
+
+			<a href="#business">Business</a>
+			<div class="submenu">
+				<a href="#get-business-info">Get Business Info</a>
+				<a href="#update-business-info">Update Business Info</a>
+			</div>
+
+			<a href="#orders">Orders</a>
+			<div class="submenu">
+				<a href="#create-new-order">Create New Order</a>
+				<a href="#get-all-orders">Get All Orders</a>
+				<a href="#get-orders-by-user-id">Get Orders by User ID</a>
+				<a href="#get-order-details">Get Order Details</a>
+				<a href="#update-order-status">Update Order Status</a>
+			</div>
+
+			<a href="#discounts">Discounts</a>
+			<div class="submenu">
+				<a href="#get-discounted-products">Get Discounted Products</a>
+			</div>
+
+			<a href="#receipts">Receipts</a>
+			<div class="submenu">
+				<a href="#create-receipt">Create Receipt</a>
+				<a href="#get-all-receipts">Get All Receipts</a>
+				<a href="#get-receipts-by-user-id">Get Receipts by User ID</a>
+			</div>
+		</div>
+
+		<div id="content">
+			<h1 id="overview">Shok Habena Market API Documentation</h1>
+			<p>
+				This is the server-side implementation of the Shok Habena Market
+				e-commerce platform. It serves as the backend API for managing users,
+				products, orders, carts, receipts, business information, and discounts. It
+				also includes real-time features powered by Socket.IO for instant updates
+				to users and admins and uses Google OAuth for google registration/login.
+			</p>
+
+			<hr />
+
+			<h2 id="features">Features</h2>
+			<ul>
+				<li>
+					<strong>RESTful API</strong> for managing all data (users, products,
+					carts, orders, etc.)
+				</li>
+				<li><strong>MongoDB</strong> for flexible and scalable data storage</li>
+				<li>
+					<strong>JWT-based Authentication</strong> and role-based access
+					(Client, Moderator, Admin)
+				</li>
+				<li>
+					<strong>Socket.IO</strong> for real-time communication:
+					<ul>
+						<li>Order status updates</li>
+						<li>New order notifications for admins and Moderators</li>
+						<li>Discount alerts</li>
+					</ul>
+				</li>
+				<li>
+					<strong>CORS & Middleware Setup</strong> for secure communication with
+					the client
+				</li>
+				<li><strong>PDF Receipt Generation</strong></li>
+				<li>
+					<strong>Validation & Error Handling</strong> included for all routes
+				</li>
+			</ul>
+
+			<hr />
+
+			<h2 id="technologies">Technologies</h2>
+			<ul>
+				<li>
+					<strong>Node.js</strong>: JavaScript runtime for server-side logic
+				</li>
+				<li><strong>Express.js</strong>: Web framework for building REST APIs</li>
+				<li><strong>MongoDB (Atlas)</strong>: NoSQL cloud database</li>
+				<li><strong>Mongoose</strong>: ODM for MongoDB</li>
+				<li><strong>JWT (jsonwebtoken)</strong>: Secure authentication</li>
+				<li><strong>bcryptjs</strong>: Password hashing</li>
+				<li><strong>Socket.IO</strong>: Real-time bidirectional communication</li>
+				<li><strong>dotenv</strong>: For managing environment variables</li>
+				<li>
+					<strong>express-validator / Joi / Yup</strong>: Input validation
+					(depending on usage)
+				</li>
+			</ul>
+
+			<hr />
+
+			<h2 id="api-routes">API Routes</h2>
+
+			<h2 id="users">Users</h2>
+
+			<div class="endpoint" id="user-registration">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>User Registration</h3>
+					</div>
+					<span class="badge post">POST</span>
+				</div>
+				<div class="endpoint-url">/api/users</div>
+				<div class="permissions">Permissions: <span>Public</span></div>
+
+				<h4>Request Body</h4>
+				<pre><code>{
+    "name": {
+        "first": "user",
+        "last": "Doe"
+    },
+    "phone": {
+        "phone_1": "0500000000",
+        "phone_2": ""
+    },
+    "address": {
+        "city": "אום אל פחם",
+        "street": "עין אל דרווה",
+        "houseNumber": "24 א"
+    },
+    "email": "user@example.com",
+    "password": "Abc123!",
+    "gender": "זכר",
+    "image": {
+        "url": "",
+        "alt": ""
+    },
+    "terms": true // Required, must have been accepted
+}</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (201 Created):</strong> Returns registration
+						success message.
+					</p>
+					<pre><code>{
+    "message": "User registered successfully!"
+}</code></pre>
+					<p>
+						<strong>Error (400 Bad Request):</strong> Validation or
+						registration errors.
+					</p>
+					<pre><code>{
+    "message": "Validation failed",
+    "errors": {
+        "email": "Email already exists"
+    }
+}</code></pre>
+				</div>
+			</div>
+
+			<div class="endpoint" id="user-login">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>User Login</h3>
+					</div>
+					<span class="badge post">POST</span>
+				</div>
+				<div class="endpoint-url">/api/users/login</div>
+
+				<div class="permissions">Permissions: <span>Public</span></div>
+
+				<h4>Request Body</h4>
+				<pre><code>{
+    "email": "user@example.com",
+    "password": "Abc123!"
+}</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p><strong>Success (200 OK):</strong> Returns JWT token.</p>
+					<pre><code>{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "expiresIn": "1h" // Example expiration time
+}</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> Invalid credentials
+						error.
+					</p>
+					<pre><code>{
+    "message": "Invalid email or password"
+}</code></pre>
+				</div>
+			</div>
+
+			<div class="endpoint" id="google-auth-verification">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Google OAuth Verification</h3>
+					</div>
+					<span class="badge post">POST</span>
+				</div>
+				<div class="endpoint-url">/api/users/google-verify</div>
+
+				<div class="permissions">Permissions: <span>Public</span></div>
+
+				<h4>Request Body</h4>
+				<p>
+					Send the Google ID token received from the client-side Google OAuth
+					process.
+				</p>
+				<pre><code>{
+    "id_token": "YOUR_GOOGLE_ID_TOKEN_HERE"
+}</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> Indicates successful
+						verification.
+					</p>
+					<pre><code>{
+    "success": true,
+    "message": "Google token verified"
+}</code></pre>
+					<p>
+						<strong>Error (400 Bad Request / 401 Unauthorized):</strong> If
+						the user doesn’t exist or any other issue occurs with the token.
+					</p>
+					<pre><code>{
+    "success": false,
+    "message": "Invalid Google token or user not found"
+}</code></pre>
+				</div>
+			</div>
+
+			<div class="endpoint" id="google-login-register">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Google Login/Register</h3>
+					</div>
+					<span class="badge post">POST</span>
+				</div>
+				<div class="endpoint-url">/api/users/google-login-register</div>
+
+				<div class="permissions">Permissions: <span>Public</span></div>
+
+				<h4>Request Body</h4>
+				<p>
+					Send the Google ID token received from the client-side Google OAuth
+					process.
+				</p>
+				<pre><code>{
+    "id_token": "YOUR_GOOGLE_ID_TOKEN_HERE"
+}</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> Returns JWT token for the newly
+						created or logged-in user.
+					</p>
+					<pre><code>{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "message": "User logged in/registered successfully"
+}</code></pre>
+					<p>
+						<strong>Error (400 Bad Request / 401 Unauthorized):</strong>
+						Validation or Google token issues.
+					</p>
+					<pre><code>{
+    "message": "Failed to authenticate with Google",
+    "details": "Invalid or expired token"
+}</code></pre>
+				</div>
+			</div>
+
+			<div class="endpoint" id="get-all-users">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get All Users</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/users</div>
+
+				<div class="permissions">Permissions: <span>Admin</span></div>
+
+				<h4>Request</h4>
+				<p>Requires an Admin JWT token in the `Authorization` header.</p>
+				<pre><code>Authorization: ADMIN_JWT_TOKEN</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> List of users without
+						passwords.
+					</p>
+					<pre><code>[
+    {
+        "_id": "60d0fe4f74d0a10015b6b123",
+        "name": { "first": "John", "last": "Doe" },
+        "email": "john.doe@example.com",
+        "role": "Client",
+        "phone": { "phone_1": "0501234567" },
+        "address": { "city": "Tel Aviv", "street": "Example St", "houseNumber": "10" }
+    },
+    // ... more users
+]</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> If the user is not an
+						Admin.
+					</p>
+					<pre><code>{
+    "message": "Forbidden: Admins only"
+}</code></pre>
+				</div>
+			</div>
+
+			<div class="endpoint" id="get-single-user-by-id">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get Single User by ID</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/users/:userId</div>
+
+				<div class="permissions">
+					Permissions: <span>Admin, Moderator, or Client (self)</span>
+				</div>
+
+				<h4>Request</h4>
+				<p>
+					Requires a JWT token in the `Authorization` header. The `:userId` in
+					the URL should be the ID of the user to retrieve.
+				</p>
+				<pre><code>Authorization: YOUR_JWT_TOKEN</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> User details without the
+						password.
+					</p>
+					<pre><code>{
+    "_id": "60d0fe4f74d0a10015b6b123",
+    "name": { "first": "John", "last": "Doe" },
+    "email": "john.doe@example.com",
+    "role": "Client",
+    "phone": { "phone_1": "0501234567" },
+    "address": { "city": "Tel Aviv", "street": "Example St", "houseNumber": "10" }
+}</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> If the user doesn't have
+						permission to view this user's details.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If the user ID does not
+						exist.
+					</p>
+					<pre><code>{
+    "message": "User not found"
+}</code></pre>
+				</div>
+			</div>
+
+			<div class="endpoint" id="update-user-role">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Update User Role</h3>
+					</div>
+					<span class="badge patch">PATCH</span>
+				</div>
+				<div class="endpoint-url">/api/users/role/:userEmail</div>
+
+				<div class="permissions">Permissions: <span>Admin Only</span></div>
+
+				<h4>Request Body</h4>
+				<p>Update the role of a user by their email.</p>
+				<pre><code>{
+    "role": "Client" // or "Moderator", "Admin"
+}</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p><strong>Success (200 OK):</strong> Updated user data.</p>
+					<pre><code>{
+    "_id": "60d0fe4f74d0a10015b6b123",
+    "name": { "first": "Jane", "last": "Doe" },
+    "email": "jane.doe@example.com",
+    "role": "Moderator",
+    "phone": { "phone_1": "0501234567" },
+    "address": { "city": "Tel Aviv", "street": "Example St", "houseNumber": "10" }
+}</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> If the user is not an
+						Admin.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If the user email does not
+						exist.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="complete-user-data">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Complete User Data</h3>
+					</div>
+					<span class="badge patch">PATCH</span>
+				</div>
+				<div class="endpoint-url">/api/users/complete/:userId</div>
+
+				<div class="permissions">
+					Permissions: <span>Authenticated User (self) or Admin</span>
+				</div>
+
+				<h4>Request Body</h4>
+				<p>
+					To complete a user’s information (e.g., phone number, address), send a
+					PATCH request with the new details.
+				</p>
+				<pre><code>{
+    "phone": {
+        "phone_1": "0526565458",
+        "phone_2": "Optional"
+    },
+    "address": {
+        "city": "City",
+        "street": "Street",
+        "houseNumber": "Optional"
+    }
+}</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p><strong>Success (200 OK):</strong> Updated user data.</p>
+					<pre><code>{
+    "_id": "60d0fe4f74d0a10015b6b123",
+    "name": { "first": "John", "last": "Doe" },
+    "email": "john.doe@example.com",
+    "role": "Client",
+    "phone": { "phone_1": "0526565458", "phone_2": "" },
+    "address": { "city": "City", "street": "Street", "houseNumber": "Optional" }
+}</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> If the user attempts to
+						update another user's data without Admin privileges.
+					</p>
+					<p><strong>Error (400 Bad Request):</strong> Validation errors.</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="change-user-password">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Change User Password</h3>
+					</div>
+					<span class="badge patch">PATCH</span>
+				</div>
+				<div class="endpoint-url">/api/users/password/:userId</div>
+
+				<div class="permissions">
+					Permissions: <span>Authenticated User (self) or Admin</span>
+				</div>
+
+				<h4>Request Body</h4>
+				<p>
+					To change the password of a user (self or Admin), send a PATCH request
+					with the new password. For security, consider including the current
+					password as well if changing your own.
+				</p>
+				<pre><code>{
+    "newPassword": "newStrongPassword123!"
+    // "currentPassword": "oldPassword123" // Optional: for self-password change verification
+}</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p><strong>Success (200 OK):</strong> Success message.</p>
+					<pre><code>{
+    "message": "Password updated successfully"
+}</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> Invalid token or
+						credentials.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> If the user attempts to
+						change another user's password without Admin privileges.
+					</p>
+					<p>
+						<strong>Error (400 Bad Request):</strong> Invalid new password
+						(e.g., doesn't meet complexity requirements) or incorrect current
+						password.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="delete-user">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Delete User</h3>
+					</div>
+					<span class="badge delete">DELETE</span>
+				</div>
+				<div class="endpoint-url">/api/users/:userId</div>
+
+				<div class="permissions">
+					Permissions: <span>Authenticated User (self) or Admin</span>
+				</div>
+
+				<h4>Request</h4>
+				<p>
+					To delete a user (self or Admin), send a DELETE request. Requires a
+					JWT token in the `Authorization` header.
+				</p>
+				<pre><code>Authorization: YOUR_JWT_TOKEN</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (204 No Content):</strong> User has been deleted.
+						(No response body for 204)
+					</p>
+					<p><strong>Success (200 OK):</strong> If a message is returned.</p>
+					<pre><code>{
+    "message": "User has been deleted."
+}</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> If the user attempts to
+						delete another user without Admin privileges.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If the user ID does not
+						exist.
+					</p>
+				</div>
+			</div>
+
+			<hr />
+
+			<h2 id="products">Products</h2>
+
+			<div class="endpoint" id="get-all-products">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get All Products</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/products</div>
+				<div class="permissions">Permissions: <span>Public</span></div>
+
+				<h4>Query Parameters (Optional)</h4>
+				<ul>
+					<li>
+						<code>category</code> (string): Filter products by category (e.g.,
+						`Fruit`, `Vegetable`).
+					</li>
+					<li>
+						<code>sale</code> (boolean): Filter products that are on sale
+						(e.g., `true`, `false`).
+					</li>
+					<li>
+						<code>minPrice</code> (number): Filter products with a price
+						greater than or equal to this value.
+					</li>
+					<li>
+						<code>maxPrice</code> (number): Filter products with a price less
+						than or equal to this value.
+					</li>
+					<li>
+						<code>sortBy</code> (string): Sort products by a specific field
+						(e.g., `price`, `product_name`).
+					</li>
+					<li>
+						<code>order</code> (string): Sort order (`asc` for ascending,
+						`desc` for descending).
+					</li>
+					<li>
+						<code>limit</code> (number): Maximum number of products to return.
+					</li>
+					<li>
+						<code>skip</code> (number): Number of products to skip for
+						pagination.
+					</li>
+				</ul>
+				<p>
+					Example: <code>/api/products?category=Fruit&sale=true&limit=10</code>
+				</p>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> Returns a list of all products
+						(filtered and paginated if query params are used).
+					</p>
+					<pre><code>[
+    {
+        "_id": "5f8d8f7d8f7d8f7d8f7d8f7d",
+        "product_name": "תות שדה",
+        "category": "Fruit",
+        "price": 13.5,
+        "quantity_in_stock": 87,
+        "description": "Fresh and sweet strawberries.",
+        "image_url": "https://example.com/strawberry.jpg",
+        "sale": false,
+        "discount": 0
+    },
+    {
+        "_id": "60a7e0c8b0e7c10015a1b2c3",
+        "product_name": "עגבנייה",
+        "category": "Vegetable",
+        "price": 5.99,
+        "quantity_in_stock": 200,
+        "description": "Ripe red tomatoes.",
+        "image_url": "https://example.com/tomato.jpg",
+        "sale": true,
+        "discount": 15
+    }
+]</code></pre>
+					<p>
+						<strong>Error (404 Not Found):</strong> If no products are found
+						matching the criteria.
+					</p>
+					<pre><code>{
+    "message": "No products found"
+}</code></pre>
+				</div>
+			</div>
+
+			<div class="endpoint" id="create-product">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Create a New Product</h3>
+					</div>
+					<span class="badge post">POST</span>
+				</div>
+				<div class="endpoint-url">/api/products</div>
+				<div class="permissions">Permissions: <span>Admin, Moderator</span></div>
+
+				<h4>Request Body</h4>
+				<p>Product data in the request body (must follow the productsSchema).</p>
+				<pre><code>{
+    "product_name": "בננה",
+    "category": "Fruit",
+    "price": 7.5,
+    "quantity_in_stock": 150,
+    "description": "Fresh yellow bananas.",
+    "image_url": "https://images.unsplash.com/photo-1574044572230-67c4273e9e34",
+    "sale": false,
+    "discount": 0
+}</code></pre>
+
+				<h4>Available Categories:</h4>
+				<ul>
+					<li>Fruit</li>
+					<li>Vegetable</li>
+					<li>Meat</li>
+					<li>Fish</li>
+					<li>Dairy</li>
+					<li>Spices</li>
+					<li>Bakery</li>
+					<li>Beverages</li>
+					<li>Frozen</li>
+					<li>Snacks</li>
+					<li>Baby</li>
+					<li>Cleaning</li>
+					<li>Pasta and Rice</li>
+					<li>Home</li>
+					<li>Alcohol</li>
+					<li>Health</li>
+					<li>Watches</li>
+					<li>Women-clothes</li>
+					<li>Women-bags</li>
+					<li>Cigarettes</li>
+				</ul>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (201 Created):</strong> Returns the newly created
+						product.
+					</p>
+					<pre><code>{
+    "_id": "60d0fe4f74d0a10015b6b123",
+    "product_name": "בננה",
+    "category": "Fruit",
+    "price": 7.5,
+    "quantity_in_stock": 150,
+    "description": "Fresh yellow bananas.",
+    "image_url": "https://images.unsplash.com/photo-1574044572230-67c4273e9e34",
+    "sale": false,
+    "discount": 0
+}</code></pre>
+					<p>
+						<strong>Error (400 Bad Request):</strong> If the data validation
+						fails or the product with the same name already exists.
+					</p>
+					<pre><code>{
+    "message": "Validation error: Product name already exists"
+}</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> If the user is not an
+						Admin or Moderator.
+					</p>
+					<pre><code>{
+    "message": "Unauthorized: Admin or Moderator required"
+}</code></pre>
+				</div>
+			</div>
+
+			<div class="endpoint" id="get-specific-products-by-name">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get Specific Product by Name</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/products/specific/:name</div>
+				<div class="permissions">Permissions: <span>Admin, Moderator</span></div>
+
+				<h4>Request</h4>
+				<p>
+					Product name in the URL parameter. Requires an Admin or Moderator JWT
+					token.
+				</p>
+				<pre><code>Authorization: YOUR_JWT_TOKEN</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p><strong>Success (200 OK):</strong> Returns the product details.</p>
+					<pre><code>{
+    "_id": "5f8d8f7d8f7d8f7d8f7d8f7d",
+    "product_name": "תות שדה",
+    "category": "Fruit",
+    "price": 13.5,
+    "quantity_in_stock": 87,
+    "description": "Fresh and sweet strawberries.",
+    "image_url": "https://example.com/strawberry.jpg",
+    "sale": false,
+    "discount": 0
+}</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> If the user is not an
+						Admin or Moderator.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If the product is not
+						found.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="update-product-by-name">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Update Product by Name</h3>
+					</div>
+					<span class="badge put">PUT</span>
+				</div>
+				<div class="endpoint-url">/api/products/:productName</div>
+				<div class="permissions">Permissions: <span>Admin, Moderator</span></div>
+
+				<h4>Request Body</h4>
+				<p>
+					Product data to update in the request body (must follow the
+					productsSchema). Send only the fields you want to update.
+				</p>
+				<pre><code>{
+    "price": 10,
+    "quantity_in_stock": 200,
+    "sale": true,
+    "discount": 10 // that's mean 10%
+}</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p><strong>Success (200 OK):</strong> Returns the updated product.</p>
+					<pre><code>{
+    "_id": "5f8d8f7d8f7d8f7d8f7d8f7d",
+    "product_name": "תות שדה",
+    "category": "Fruit",
+    "price": 10,
+    "quantity_in_stock": 200,
+    "description": "Fresh and sweet strawberries.",
+    "image_url": "https://example.com/strawberry.jpg",
+    "sale": true,
+    "discount": 10
+}</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> If the user is not an
+						Admin or Moderator.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If the product does not
+						exist.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="delete-product">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Delete Product</h3>
+					</div>
+					<span class="badge delete">DELETE</span>
+				</div>
+				<div class="endpoint-url">/api/products/:name</div>
+				<div class="permissions">Permissions: <span>Admin, Moderator</span></div>
+
+				<h4>Request</h4>
+				<p>
+					Product name in the URL parameter. Requires an Admin or Moderator JWT
+					token.
+				</p>
+				<pre><code>Authorization: YOUR_JWT_TOKEN</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (204 No Content):</strong> If the product is
+						successfully deleted. (No response body)
+					</p>
+					<p><strong>Success (200 OK):</strong> If a message is returned.</p>
+					<pre><code>{
+    "message": "Product deleted successfully"
+}</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> If the user is not an
+						Admin or Moderator.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If the product does not
+						exist.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="get-products-by-category">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get Products by Category</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/products/:category</div>
+				<div class="permissions">Permissions: <span>Public</span></div>
+
+				<h4>Request</h4>
+				<p>Category name in the URL parameter.</p>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> Returns a list of products in
+						the specified category.
+					</p>
+					<pre><code>[
+    {
+        "_id": "5f8d8f7d8f7d8f7d8f7d8f7d",
+        "product_name": "תות שדה",
+        "category": "Fruit",
+        "price": 13.5,
+        "quantity_in_stock": 87,
+        "description": "Fresh and sweet strawberries.",
+        "image_url": "https://example.com/strawberry.jpg",
+        "sale": false,
+        "discount": 0
+    },
+    // ... more products in the 'Fruit' category
+]</code></pre>
+					<p>
+						<strong>Error (404 Not Found):</strong> If no products are found
+						in the specified category.
+					</p>
+					<pre><code>{
+    "message": "No products found in this category"
+}</code></pre>
+				</div>
+			</div>
+
+			<hr />
+
+			<h2 id="cart">Cart</h2>
+
+			<div class="endpoint" id="add-product-to-cart">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Add Product to Cart</h3>
+					</div>
+					<span class="badge post">POST</span>
+				</div>
+				<div class="endpoint-url">/api/cart</div>
+				<div class="permissions">
+					Permissions: <span>Authenticated User</span>
+				</div>
+
+				<h4>Request Body</h4>
+				<p>
+					Adds a product to the current user's cart or updates quantity if it
+					already exists.
+				</p>
+				<pre><code>{
+    "userId": "YOUR_USER_ID", // This can often be derived from the JWT token on the server
+    "products": [
+        {
+            "product_name": "Product Name",
+            "quantity": 2,
+            "product_price": 50,
+            "product_image": "url_to_image",
+            "sale": true,
+            "discount": 10
+        }
+    ],
+    "total_price": 100 // Note: total_price is usually calculated server-side
+}</code></pre>
+
+				<h4>Example with Axios</h4>
+				<pre><code class="language-js">axios
+    .post("/api/cart", productData, { headers: { Authorization: token } })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.error(err.response.data));</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> Product added/updated in cart.
+					</p>
+					<pre><code>{
+    "message": "Product added to cart successfully",
+    "cart": { ...updated_cart_object... }
+}</code></pre>
+					<p>
+						<strong>Error (400 Bad Request):</strong> Validation error or
+						missing data.
+					</p>
+					<p><strong>Error (404 Not Found):</strong> Product does not exist.</p>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> Invalid or missing
+						token.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="get-current-user-cart">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get Current User Cart</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/cart/my-cart</div>
+				<div class="permissions">
+					Permissions: <span>Authenticated User</span>
+				</div>
+
+				<h4>Request</h4>
+				<p>Fetches the cart of the current authenticated user.</p>
+				<pre><code>Authorization: YOUR_JWT_TOKEN</code></pre>
+
+				<h4>Example with Axios</h4>
+				<pre><code class="language-js">axios
+    .get("/api/cart/my-cart", { headers: { Authorization: token } })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.error(err.response.data));</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> Returns the user's cart
+						details.
+					</p>
+					<pre><code>{
+    "userId": "user_id_123",
+    "products": [
+        {
+            "product_name": "Product Name",
+            "quantity": 2,
+            "product_price": 100,
+            "product_image": "img.url...",
+            "sale": true,
+            "discount": 10
+        }
+    ],
+    "total_price": 180 // Calculated total price, considering quantity and discount
+}</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> Invalid or missing
+						token.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If the user's cart is
+						empty or not found.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="get-all-carts">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get All Carts (Admin Only)</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/cart/admin</div>
+				<div class="permissions">Permissions: <span>Admin</span></div>
+
+				<h4>Request</h4>
+				<p>Requires an Admin JWT token.</p>
+				<pre><code>Authorization:  ADMIN_JWT_TOKEN</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> Returns an array of all carts
+						in the system.
+					</p>
+					<pre><code>[
+    {
+        "userId": "user_id_1",
+        "products": [ { "product_name": "A", "quantity": 1 } ],
+        "total_price": 50
+    },
+    {
+        "userId": "user_id_2",
+        "products": [ { "product_name": "B", "quantity": 3 } ],
+        "total_price": 150
+    }
+]</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> Invalid or missing
+						token.
+					</p>
+					<p><strong>Error (403 Forbidden):</strong> Non-admin access.</p>
+					<p><strong>Error (404 Not Found):</strong> No carts found.</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="delete-product-from-cart">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Delete Product from Cart</h3>
+					</div>
+					<span class="badge delete">DELETE</span>
+				</div>
+				<div class="endpoint-url">/api/cart/:product_name</div>
+				<div class="permissions">
+					Permissions: <span>Authenticated User</span>
+				</div>
+
+				<h4>Request</h4>
+				<p>
+					Deletes a specific product from the current user's cart.
+					`:product_name` is the name of the product to remove.
+				</p>
+				<pre><code>Authorization:  YOUR_JWT_TOKEN</code></pre>
+
+				<h4>Example with Axios</h4>
+				<pre><code class="language-js">axios
+    .delete("/api/cart/Coca-Cola", { headers: { Authorization: token } })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.error(err.response.data));</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> Product successfully removed.
+					</p>
+					<pre><code>{
+    "message": "Product removed from cart successfully"
+}</code></pre>
+					<p>
+						<strong>Error (404 Not Found):</strong> Cart or product not found.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> Authenticated user doesn't
+						match the cart owner.
+					</p>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> Invalid or missing
+						token.
+					</p>
+				</div>
+			</div>
+
+			<hr />
+
+			<h2 id="business">Business</h2>
+
+			<div class="endpoint" id="get-business-info">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get Business Info</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/business-info</div>
+				<div class="permissions">Permissions: <span>Public</span></div>
+
+				<h4>Request</h4>
+				<pre><code class="language-js">axios
+    .get("/api/business-info")
+    .then((res) => console.log(res.data))
+    .catch((err) => console.error(err.response.data));</code></pre>
+
+				<div class="response-example">
+					<h4>Success (200 OK):</h4>
+					<pre><code>{
+    "business_name": "Shok Habena Market",
+    "phone": "03-1234567",
+    "email": "info@ShokHabena-market.com",
+    "address": "123 Main Street, Tel Aviv",
+    "hours": "Sun-Thu: 08:00-20:00"
+}</code></pre>
+					<p>
+						<strong>Error (400 Bad Request):</strong> Server error (invalid DB
+						state or query issue).
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="update-business-info">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Update Business Info</h3>
+					</div>
+					<span class="badge put">PUT</span>
+				</div>
+				<div class="endpoint-url">/api/business-info</div>
+				<div class="permissions">Permissions: <span>Admin</span></div>
+
+				<h4>Request Body</h4>
+				<p>Requires an Admin JWT token.</p>
+				<pre><code>{
+    "business_name": "Shok Habena Market (New Name)",
+    "phone": "03-9876543",
+    "email": "contact@ShokHabena-market.com",
+    "address": "456 Side Road, Jerusalem",
+    "hours": "Sun-Fri: 09:00-21:00"
+}</code></pre>
+
+				<h4>Example with Axios</h4>
+				<pre><code class="language-js">axios
+    .put("/api/business-info", updatedBusinessInfo, {
+        headers: { Authorization: token },
+    })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.error(err.response.data));</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> Updated business info document.
+					</p>
+					<pre><code>{
+    "business_name": "Shok Habena Market (New Name)",
+    "phone": "03-9876543",
+    "email": "contact@ShokHabena-market.com",
+    "address": "456 Side Road, Jerusalem",
+    "hours": "Sun-Fri: 09:00-21:00"
+}</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> User is not an admin.
+					</p>
+					<p><strong>Error (400 Bad Request):</strong> Validation error.</p>
+				</div>
+			</div>
+
+			<hr />
+
+			<h2 id="orders">Orders</h2>
+
+			<div class="endpoint" id="create-new-order">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Create New Order</h3>
+					</div>
+					<span class="badge post">POST</span>
+				</div>
+				<div class="endpoint-url">/api/orders</div>
+				<div class="permissions">
+					Permissions: <span>Authenticated User (Client)</span>
+				</div>
+
+				<h4>Request Body</h4>
+				<p>
+					Creates a new order for the logged-in user, usually based on the
+					current cart contents.
+				</p>
+				<pre><code>{
+    "shippingAddress": {
+        "city": "Tel Aviv",
+        "street": "Example St",
+        "houseNumber": "10"
+    },
+    "paymentMethod": "Credit Card" // or "Cash on Delivery", "PayPal" etc.
+    // The products will typically be pulled from the user's cart on the server side
+}</code></pre>
+
+				<h4>Example with Axios</h4>
+				<pre><code class="language-js">axios.post("/api/orders", orderData, {
+    headers: {
+        Authorization: token,
+    },
+});</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (201 Created):</strong> The created order object.
+					</p>
+					<pre><code>{
+    "_id": "60d0fe4f74d0a10015b6b123",
+    "userId": "user_id_123",
+    "orderNumber": "ORD-58362",
+    "orderDate": "2025-04-14T09:13:01.357Z",
+    "products": [
+        { "product_name": "Product A", "quantity": 1, "price": 100 },
+        { "product_name": "Product B", "quantity": 2, "price": 50 }
+    ],
+    "totalAmount": 200,
+    "status": "Pending",
+    "shippingAddress": { ... },
+    "paymentMethod": "Credit Card"
+}</code></pre>
+					<p>
+						<strong>Real-time Notification:</strong> This action sends a
+						`newOrderNotification` event to admins and Moderators via
+						Socket.IO.
+					</p>
+					<p>
+						<strong>Error (400 Bad Request):</strong> Validation or server
+						error (e.g., empty cart).
+					</p>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> Invalid or missing
+						token.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="get-all-orders">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get All Orders</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/orders</div>
+				<div class="permissions">Permissions: <span>Admin, Moderator</span></div>
+
+				<h4>Request</h4>
+				<p>
+					Retrieve all orders from all users. Requires Admin or Moderator token.
+				</p>
+				<pre><code>Authorization:  ADMIN_OR_MOD_TOKEN</code></pre>
+
+				<h4>Example with Axios</h4>
+				<pre><code class="language-js">axios.get("/api/orders", {
+    headers: {
+        Authorization: adminToken,
+    },
+});</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p><strong>Success (200 OK):</strong> Array of all orders.</p>
+					<pre><code>[
+    {
+        "_id": "order_id_1",
+        "userId": "user_id_1",
+        "orderNumber": "ORD-12345",
+        "totalAmount": 150,
+        "status": "Delivered",
+        // ... more order details
+    },
+    {
+        "_id": "order_id_2",
+        "userId": "user_id_2",
+        "orderNumber": "ORD-67890",
+        "totalAmount": 250,
+        "status": "Pending",
+        // ... more order details
+    }
+]</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> Invalid or missing
+						token.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> User is not an Admin or
+						Moderator.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="get-orders-by-user-id">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get Orders by User ID</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/orders/:userId</div>
+				<div class="permissions">
+					Permissions: <span>Admin, Moderator, or Owner User / Client</span>
+				</div>
+
+				<h4>Request</h4>
+				<p>
+					Get all orders for a specific user. Requires Admin, Moderator, or the
+					owner user's token.
+				</p>
+				<pre><code>Authorization:  YOUR_JWT_TOKEN</code></pre>
+
+				<h4>Example with Axios</h4>
+				<pre><code class="language-js">axios.get(`/api/orders/${userId}`, {
+    headers: {
+        Authorization: token,
+    },
+});</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p><strong>Success (200 OK):</strong> Array of user's orders.</p>
+					<pre><code>[
+    {
+        "_id": "order_id_user_1",
+        "userId": "specific_user_id",
+        "orderNumber": "ORD-11223",
+        "totalAmount": 120,
+        "status": "Processing",
+        // ... more order details
+    }
+]</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> Invalid or missing
+						token.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> User does not have
+						permission to access these orders.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> No orders found for this
+						user ID.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="get-order-details">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get Order Details</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/orders/details/:orderNumber</div>
+				<div class="permissions">
+					Permissions: <span>Authenticated User (owner), Admin, Moderator</span>
+				</div>
+
+				<h4>Request</h4>
+				<p>
+					Retrieve a specific order by its number. Requires a valid JWT token.
+				</p>
+				<pre><code>Authorization:  YOUR_JWT_TOKEN</code></pre>
+
+				<h4>Example with Axios</h4>
+				<pre><code class="language-js">axios.get(`/api/orders/details/${orderNumber}`, {
+    headers: {
+        Authorization: token,
+    },
+});</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p><strong>Success (200 OK):</strong> Full order data.</p>
+					<pre><code>{
+    "_id": "order_id_specific",
+    "userId": "user_id_123",
+    "orderNumber": "ORD-58362",
+    "orderDate": "2025-04-14T09:13:01.357Z",
+    "customer": { ... },
+    "products": [ ... ],
+    "totalAmount": 92.6,
+    "status": "Processing",
+    "deliveryFee": 25,
+    "discount": 0,
+    "payment": "Credit Card"
+}</code></pre>
+					<p><strong>Error (404 Not Found):</strong> Order not found.</p>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> Invalid or missing
+						token.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> User does not have
+						permission to access this order.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="update-order-status">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Update Order Status</h3>
+					</div>
+					<span class="badge patch">PATCH</span>
+				</div>
+				<div class="endpoint-url">/api/orders/:orderNumber</div>
+				<div class="permissions">Permissions: <span>Admin, Moderator</span></div>
+
+				<h4>Request Body</h4>
+				<p>
+					Update the status of a specific order. Requires Admin or Moderator
+					token.
+				</p>
+				<pre><code>{
+    "status": "Delivered" // Possible statuses: "Pending", "Processing", "Shipped", "Delivered", "Cancelled"
+}</code></pre>
+
+				<h4>Example with Axios</h4>
+				<pre><code class="language-js">axios.patch(
+    `/api/orders/${orderNumber}`,
+    { status: "Delivered" },
+    { headers: { Authorization: adminToken } }
+);</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p><strong>Success (200 OK):</strong> Updated order object.</p>
+					<pre><code>{
+    "_id": "order_id_specific",
+    "userId": "user_id_123",
+    "orderNumber": "ORD-58362",
+    "status": "Delivered",
+    // ... rest of the updated order data
+}</code></pre>
+					<p>
+						<strong>Real-time Notification:</strong> Sends a
+						`orderStatusUpdate` Socket.IO event to the client whose order
+						status has changed.
+					</p>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> Invalid or missing
+						token.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> User is not an Admin or
+						Moderator.
+					</p>
+					<p><strong>Error (404 Not Found):</strong> Order not found.</p>
+				</div>
+			</div>
+
+			<hr />
+
+			<h2 id="discounts">Discounts</h2>
+
+			<div class="endpoint" id="get-discounted-products">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get Discounted Products</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/discounts</div>
+				<div class="permissions">Permissions: <span>Public</span></div>
+
+				<h4>Description</h4>
+				<p>
+					Retrieve up to 20 products that are currently on sale (<code
+						>sale: true</code
+					>).
+				</p>
+
+				<h4>Request</h4>
+				<pre><code class="language-js">axios
+    .get("/api/discounts")
+    .then((response) => {
+        console.log("Discounted products:", response.data);
+    })
+    .catch((error) => {
+        console.error("Error fetching discounts:", error.response.data);
+    });</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> Array of up to 20 discounted
+						products.
+					</p>
+					<pre><code>[
+    {
+        "_id": "product_id_1",
+        "product_name": "תפוח אדמה",
+        "category": "Vegetable",
+        "price": 8.0,
+        "sale": true,
+        "discount": 20, // 20% discount
+        "image_url": "https://example.com/potato.jpg"
+    },
+    {
+        "_id": "product_id_2",
+        "product_name": "מים מינרליים",
+        "category": "Beverages",
+        "price": 5.0,
+        "sale": true,
+        "discount": 10,
+        "image_url": "https://example.com/water.jpg"
+    }
+]</code></pre>
+					<p>
+						<strong>Error (404 Not Found):</strong> No discounted products
+						available.
+					</p>
+					<pre><code>{
+    "message": "No discounted products found"
+}</code></pre>
+				</div>
+			</div>
+
+			<div class="endpoint" id="create-discount">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Create Discount</h3>
+					</div>
+					<span class="badge post">POST</span>
+				</div>
+				<div class="endpoint-url">/api/discounts</div>
+				<div class="permissions">Permissions: <span>Admin</span></div>
+
+				<h4>Request Body</h4>
+				<p>
+					Create a new discount. Note: This assumes discounts are applied to
+					products and update `sale` and `discount` fields on products.
+				</p>
+				<pre><code>{
+    "product_name": "Specific Product Name", // Optional: to apply discount to a specific product
+    "category": "Fruit", // Optional: to apply discount to a whole category
+    "discount_percentage": 15,
+    "start_date": "2025-06-01T00:00:00Z",
+    "end_date": "2025-06-15T23:59:59Z",
+    "description": "Summer sale on fruits!"
+}</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (201 Created):</strong> Returns the created
+						discount object or updated product(s).
+					</p>
+					<pre><code>{
+    "message": "Discount applied successfully",
+    "updatedProductsCount": 5
+}</code></pre>
+					<p>
+						<strong>Error (400 Bad Request):</strong> Invalid data or
+						product/category not found.
+					</p>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> User is not an Admin.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="delete-discount">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Delete Discount</h3>
+					</div>
+					<span class="badge delete">DELETE</span>
+				</div>
+				<div class="endpoint-url">/api/discounts/:id</div>
+				<div class="permissions">Permissions: <span>Admin</span></div>
+
+				<h4>Request</h4>
+				<p>
+					Delete a discount by its ID. This will likely revert products to their
+					original prices.
+				</p>
+				<pre><code>Authorization:  ADMIN_TOKEN</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (204 No Content):</strong> Discount successfully
+						removed.
+					</p>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> User is not an Admin.
+					</p>
+					<p><strong>Error (404 Not Found):</strong> Discount not found.</p>
+				</div>
+			</div>
+
+			<hr />
+
+			<h2 id="receipts">Receipts</h2>
+
+			<div class="endpoint" id="create-receipt">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Create Receipt</h3>
+					</div>
+					<span class="badge post">POST</span>
+				</div>
+				<div class="endpoint-url">/api/receipts</div>
+				<div class="permissions">Permissions: <span>Admin</span></div>
+
+				<h4>Description</h4>
+				<p>
+					This endpoint is typically used internally by the system (e.g., after
+					an order is successfully processed) to generate a receipt document.
+					Manual creation might require Admin privileges.
+				</p>
+
+				<h4>Request Body</h4>
+				<pre><code>{
+    "userId": "user_id_example",
+    "orderNumber": "ORD-58362",
+    "orderDate": "2025-04-14T09:13:01.357+00:00",
+    "customer": {
+        "name": { "first": "jon", "last": "bill" },
+        "email": "jon@gmail.com",
+        "phone": { "phone_1": "053835458", "phone_2": "" },
+        "address": { "city": "Tel aviv", "street": "bengorion", "houseNumber": "29" }
+    },
+    "products": [
+        { "product_name": "חטיפי חמאה", "quantity": 2, "product_price": 10.8 },
+        { "product_name": "סנדוויצ'ים מוכנים", "quantity": 4, "product_price": 48 },
+        { "product_name": "סוכריות גומי", "quantity": 2, "product_price": 8.8 }
+    ],
+    "payment": "Credit Card", // Corrected from "false"
+    "deliveryFee": 25,
+    "discount": 0,
+    "totalAmount": 92.6,
+    "businessInfo": {
+        "name": "שוק הפינה פירות ירקות ועוד",
+        "phone": "0538346915",
+        "email": "support@fruitsandveg.com",
+        "address": "שדרות ירושלים 45, תל אביב"
+    }
+}</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (201 Created):</strong> Returns the newly created
+						receipt object.
+					</p>
+					<pre><code>{
+    "_id": "receipt_id_example",
+    "userId": "user_id_example",
+    "orderNumber": "ORD-58362",
+    // ... full receipt data ...
+}</code></pre>
+					<p>
+						<strong>Error (400 Bad Request):</strong> Validation errors or
+						missing data.
+					</p>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> Invalid or missing
+						token.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> User is not an Admin if
+						manual creation is restricted.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="get-all-receipts">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get All Receipts</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/receipts</div>
+				<div class="permissions">Permissions: <span>Admin</span></div>
+
+				<h4>Request</h4>
+				<p>Fetch all receipts. Requires an Admin JWT token.</p>
+				<pre><code class="language-js">axios
+    .get("/api/receipts", { headers: { Authorization: adminToken } })
+    .then((response) => console.log(response.data))
+    .catch((error) => console.error(error.response.data));</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> Returns a list of all receipts.
+					</p>
+					<pre><code>[
+    {
+        "_id": "receipt_id_1",
+        "orderNumber": "ORD-12345",
+        "customer": { "name": { "first": "Alice" } },
+        "totalAmount": 100,
+        // ... more receipt details
+    },
+    // ... more receipts
+]</code></pre>
+					<p>
+						<strong>Error (403 Forbidden):</strong> If the user is not an
+						Admin.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If no receipts are found.
+					</p>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> Invalid or missing
+						token.
+					</p>
+				</div>
+			</div>
+
+			<div class="endpoint" id="get-receipts-by-user-id">
+				<div class="endpoint-header">
+					<div class="endpoint-title">
+						<h3>Get Receipts by User ID</h3>
+					</div>
+					<span class="badge get">GET</span>
+				</div>
+				<div class="endpoint-url">/api/receipts/:userId</div>
+				<div class="permissions">
+					Permissions: <span>Authenticated User (self), Admin</span>
+				</div>
+
+				<h4>Request</h4>
+				<p>
+					Fetch receipts for a specific user. User can only access their own
+					receipts or an Admin can access any user's receipts.
+				</p>
+				<pre><code class="language-js">axios
+    .get("/api/receipts/userId123", { headers: { Authorization: userToken } })
+    .then((response) => console.log(response.data))
+    .catch((error) => console.error(error.response.data));</code></pre>
+
+				<div class="response-example">
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> Returns a list of the user's
+						receipts.
+					</p>
+					<pre><code>[
+    {
+        "_id": "receipt_id_user_1",
+        "userId": "userId123",
+        "orderNumber": "ORD-001",
+        "totalAmount": 50,
+        // ... more receipt details
+    }
+]</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> If the token is invalid
+						or missing.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> If the user attempts to
+						access receipts of another user without proper authorization.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If no receipts are found
+						for the given user.
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			// Smooth scrolling for anchor links
+			document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+				anchor.addEventListener("click", function (e) {
+					e.preventDefault();
+					document.querySelector(this.getAttribute("href")).scrollIntoView({
+						behavior: "smooth",
+					});
+				});
+			});
+
+			// Highlight current section in sidebar
+			window.addEventListener("scroll", function () {
+				const sections = document.querySelectorAll("h2[id], .endpoint");
+				let currentSection = "";
+
+				sections.forEach((section) => {
+					const sectionTop = section.offsetTop;
+					if (pageYOffset >= sectionTop - 150) {
+						currentSection = section.id;
+					}
+				});
+
+				document.querySelectorAll("#sidebar a").forEach((link) => {
+					link.classList.remove("active");
+					if (link.getAttribute("href") === `#${currentSection}`) {
+						link.classList.add("active");
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
