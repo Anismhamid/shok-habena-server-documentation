@@ -4,206 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Shok Habena Market - API Documentation</title>
-		<style>
-			:root {
-				--primary: #2c3e50;
-				--secondary: #34495e;
-				--accent: #e67e22;
-				--light: #ecf0f1;
-				--dark: #2c3e50;
-				--success: #27ae60;
-				--danger: #e74c3c;
-			}
-			body {
-				font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-				line-height: 1.6;
-				margin: 0;
-				padding: 0;
-				display: flex;
-				background-color: var(--light);
-				color: var(--dark);
-			}
-			#sidebar {
-				width: 280px;
-				background-color: var(--primary);
-				color: white;
-				padding: 20px;
-				height: 100vh;
-				position: fixed;
-				overflow-y: auto;
-				padding-bottom: 30px;
-				padding-bottom: 100px;
-			}
-			#sidebar h2 {
-				color: var(--accent);
-				border-bottom: 2px solid var(--accent);
-			}
-			#sidebar a {
-				color: var(--light);
-				text-decoration: none;
-				display: block;
-				padding: 8px 0;
-				transition: all 0.3s ease;
-			}
-			#sidebar a:hover {
-				color: var(--accent);
-				padding-left: 5px;
-			}
-			#sidebar .submenu {
-				padding-left: 15px;
-				border-left: 1px solid rgba(255, 255, 255, 0.1);
-			}
-			#content {
-				margin-left: 320px;
-				padding: 30px;
-				max-width: 900px;
-			}
-			h1,
-			h2,
-			h3 {
-				color: var(--primary);
-			}
-			h1 {
-				border-bottom: 3px solid var(--accent);
-				padding-bottom: 10px;
-			}
-			h2 {
-				margin-top: 40px;
-				border-left: 4px solid var(--accent);
-				padding-left: 10px;
-			}
-			h3 {
-				margin-top: 25px;
-				color: var(--secondary);
-			}
-			.badge {
-				display: inline-block;
-				padding: 3px 8px;
-				border-radius: 4px;
-				font-size: 12px;
-				font-weight: bold;
-				margin-right: 5px;
-			}
-			.badge.get {
-				background: #61affe;
-				color: #000;
-			}
-			.badge.post {
-				background: #49cc90;
-				color: #000;
-			}
-			.badge.put {
-				background: #fca130;
-				color: #000;
-			}
-			.badge.patch {
-				background: #50e3c2;
-				color: #000;
-			}
-			.badge.delete {
-				background: #f93e3e;
-				color: #fff;
-			}
-			.endpoint {
-				background-color: white;
-				border-radius: 8px;
-				padding: 20px;
-				margin: 20px 0;
-				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-				border-left: 4px solid var(--accent);
-			}
-			.endpoint-header {
-				display: flex;
-				align-items: center;
-				margin-bottom: 15px;
-			}
-			.endpoint-title {
-				flex-grow: 1;
-			}
-			.endpoint-method {
-				font-weight: bold;
-			}
-			.endpoint-url {
-				background-color: #f5f5f5;
-				padding: 5px 10px;
-				border-radius: 4px;
-				font-family: monospace;
-				word-break: break-all;
-			}
-			.permissions {
-				margin: 10px 0;
-				padding: 10px;
-				background-color: #f8f9fa;
-				border-radius: 4px;
-				font-size: 14px;
-			}
-			.permissions span {
-				font-weight: bold;
-				color: var(--accent);
-			}
-			code {
-				padding: 2px 4px;
-				border-radius: 4px;
-				font-family: monospace;
-				font-size: 14px;
-			}
-			pre {
-				background-color: #292d3e;
-				color: #f8f8f2;
-				padding: 15px;
-				border-radius: 6px;
-				overflow-x: auto;
-				font-size: 14px;
-				line-height: 1.5;
-			}
-			table {
-				border-collapse: collapse;
-				width: 100%;
-				margin: 20px 0;
-				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-			}
-			th,
-			td {
-				border: 1px solid #ddd;
-				padding: 12px;
-				text-align: left;
-			}
-			th {
-				background-color: var(--primary);
-				color: white;
-			}
-			tr:nth-child(even) {
-				background-color: #f2f2f2;
-			}
-			.response-example {
-				margin-top: 15px;
-			}
-			.response-example h4 {
-				margin-bottom: 10px;
-				color: var(--secondary);
-			}
-			.note {
-				background-color: #fff8e1;
-				border-left: 4px solid #ffc107;
-				padding: 10px;
-				margin: 15px 0;
-				font-size: 14px;
-			}
-			@media (max-width: 768px) {
-				body {
-					flex-direction: column;
-				}
-				#sidebar {
-					width: 100%;
-					height: auto;
-					position: relative;
-				}
-				#content {
-					margin-left: 0;
-					padding: 20px;
-				}
-			}
-		</style>
+		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
 		<div id="sidebar">
@@ -383,7 +184,9 @@
 					</p>
 					<pre><code>{
     "message": "User registered successfully!"
-}</code></pre>
+}
+</code>
+</pre>
 					<p>
 						<strong>Error (400 Bad Request):</strong> Validation or
 						registration errors.
@@ -1050,12 +853,16 @@
     "discount": 10
 }</code></pre>
 					<p>
+						<strong>Error (400 Bad Request):</strong> If the data validation
+						fails.
+					</p>
+					<p>
 						<strong>Error (401 Unauthorized):</strong> If the user is not an
 						Admin or Moderator.
 					</p>
 					<p>
-						<strong>Error (404 Not Found):</strong> If the product does not
-						exist.
+						<strong>Error (404 Not Found):</strong> If the product name does
+						not exist.
 					</p>
 				</div>
 			</div>
@@ -1067,7 +874,7 @@
 					</div>
 					<span class="badge delete">DELETE</span>
 				</div>
-				<div class="endpoint-url">/api/products/:name</div>
+				<div class="endpoint-url">/api/products/:productName</div>
 				<div class="permissions">Permissions: <span>Admin, Moderator</span></div>
 
 				<h4>Request</h4>
@@ -1080,20 +887,24 @@
 				<div class="response-example">
 					<h4>Response</h4>
 					<p>
-						<strong>Success (204 No Content):</strong> If the product is
-						successfully deleted. (No response body)
+						<strong>Success (204 No Content):</strong> Product has been
+						deleted. (No response body for 204)
 					</p>
 					<p><strong>Success (200 OK):</strong> If a message is returned.</p>
 					<pre><code>{
-    "message": "Product deleted successfully"
+    "message": "Product has been deleted."
 }</code></pre>
 					<p>
-						<strong>Error (401 Unauthorized):</strong> If the user is not an
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> If the user is not an
 						Admin or Moderator.
 					</p>
 					<p>
-						<strong>Error (404 Not Found):</strong> If the product does not
-						exist.
+						<strong>Error (404 Not Found):</strong> If the product name does
+						not exist.
 					</p>
 				</div>
 			</div>
@@ -1105,7 +916,7 @@
 					</div>
 					<span class="badge get">GET</span>
 				</div>
-				<div class="endpoint-url">/api/products/:category</div>
+				<div class="endpoint-url">/api/products/category/:categoryName</div>
 				<div class="permissions">Permissions: <span>Public</span></div>
 
 				<h4>Request</h4>
@@ -1120,20 +931,19 @@
 					<pre><code>[
     {
         "_id": "5f8d8f7d8f7d8f7d8f7d8f7d",
-        "product_name": "תות שדה",
+        "product_name": "בננה",
         "category": "Fruit",
-        "price": 13.5,
-        "quantity_in_stock": 87,
-        "description": "Fresh and sweet strawberries.",
-        "image_url": "https://example.com/strawberry.jpg",
+        "price": 7.5,
+        "quantity_in_stock": 150,
+        "description": "Fresh yellow bananas.",
+        "image_url": "https://images.unsplash.com/photo-1574044572230-67c4273e9e34",
         "sale": false,
         "discount": 0
-    },
-    // ... more products in the 'Fruit' category
+    }
 ]</code></pre>
 					<p>
 						<strong>Error (404 Not Found):</strong> If no products are found
-						in the specified category.
+						for the given category.
 					</p>
 					<pre><code>{
     "message": "No products found in this category"
@@ -1158,48 +968,43 @@
 				</div>
 
 				<h4>Request Body</h4>
-				<p>
-					Adds a product to the current user's cart or updates quantity if it
-					already exists.
-				</p>
+				<p>Product ID and quantity to add to the cart.</p>
 				<pre><code>{
-    "userId": "YOUR_USER_ID", // This can often be derived from the JWT token on the server
-    "products": [
-        {
-            "product_name": "Product Name",
-            "quantity": 2,
-            "product_price": 50,
-            "product_image": "url_to_image",
-            "sale": true,
-            "discount": 10
-        }
-    ],
-    "total_price": 100 // Note: total_price is usually calculated server-side
+    "productId": "60d0fe4f74d0a10015b6b123",
+    "quantity": 2
 }</code></pre>
-
-				<h4>Example with Axios</h4>
-				<pre><code class="language-js">axios
-    .post("/api/cart", productData, { headers: { Authorization: token } })
-    .then((res) => console.log(res.data))
-    .catch((err) => console.error(err.response.data));</code></pre>
 
 				<div class="response-example">
 					<h4>Response</h4>
 					<p>
-						<strong>Success (200 OK):</strong> Product added/updated in cart.
+						<strong>Success (200 OK):</strong> Returns the updated cart
+						details for the user.
 					</p>
 					<pre><code>{
-    "message": "Product added to cart successfully",
-    "cart": { ...updated_cart_object... }
+    "_id": "60d0fe4f74d0a10015b6b456",
+    "userId": "60d0fe4f74d0a10015b6b123",
+    "products": [
+        {
+            "productId": "60d0fe4f74d0a10015b6b123",
+            "quantity": 2,
+            "_id": "60d0fe4f74d0a10015b6b789"
+        }
+    ],
+    "createdAt": "2023-10-26T10:00:00.000Z",
+    "updatedAt": "2023-10-26T10:00:00.000Z",
+    "__v": 0
 }</code></pre>
 					<p>
-						<strong>Error (400 Bad Request):</strong> Validation error or
-						missing data.
+						<strong>Error (400 Bad Request):</strong> If validation fails
+						(e.g., invalid product ID, insufficient stock).
 					</p>
-					<p><strong>Error (404 Not Found):</strong> Product does not exist.</p>
 					<p>
-						<strong>Error (401 Unauthorized):</strong> Invalid or missing
-						token.
+						<strong>Error (401 Unauthorized):</strong> If the user is not
+						authenticated.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If the product does not
+						exist.
 					</p>
 				</div>
 			</div>
@@ -1207,53 +1012,54 @@
 			<div class="endpoint" id="get-current-user-cart">
 				<div class="endpoint-header">
 					<div class="endpoint-title">
-						<h3>Get Current User Cart</h3>
+						<h3>Get Current User's Cart</h3>
 					</div>
 					<span class="badge get">GET</span>
 				</div>
-				<div class="endpoint-url">/api/cart/my-cart</div>
+				<div class="endpoint-url">/api/cart</div>
 				<div class="permissions">
 					Permissions: <span>Authenticated User</span>
 				</div>
 
 				<h4>Request</h4>
-				<p>Fetches the cart of the current authenticated user.</p>
+				<p>Requires an authenticated JWT token in the `Authorization` header.</p>
 				<pre><code>Authorization: YOUR_JWT_TOKEN</code></pre>
-
-				<h4>Example with Axios</h4>
-				<pre><code class="language-js">axios
-    .get("/api/cart/my-cart", { headers: { Authorization: token } })
-    .then((res) => console.log(res.data))
-    .catch((err) => console.error(err.response.data));</code></pre>
 
 				<div class="response-example">
 					<h4>Response</h4>
 					<p>
-						<strong>Success (200 OK):</strong> Returns the user's cart
+						<strong>Success (200 OK):</strong> Returns the current user's cart
 						details.
 					</p>
 					<pre><code>{
-    "userId": "user_id_123",
+    "_id": "60d0fe4f74d0a10015b6b456",
+    "userId": "60d0fe4f74d0a10015b6b123",
     "products": [
         {
-            "product_name": "Product Name",
+            "productId": {
+                "_id": "60d0fe4f74d0a10015b6b123",
+                "product_name": "תות שדה",
+                "price": 13.5
+            },
             "quantity": 2,
-            "product_price": 100,
-            "product_image": "img.url...",
-            "sale": true,
-            "discount": 10
+            "_id": "60d0fe4f74d0a10015b6b789"
         }
     ],
-    "total_price": 180 // Calculated total price, considering quantity and discount
+    "createdAt": "2023-10-26T10:00:00.000Z",
+    "updatedAt": "2023-10-26T10:00:00.000Z",
+    "__v": 0
 }</code></pre>
 					<p>
-						<strong>Error (401 Unauthorized):</strong> Invalid or missing
-						token.
+						<strong>Error (401 Unauthorized):</strong> If the user is not
+						authenticated.
 					</p>
 					<p>
-						<strong>Error (404 Not Found):</strong> If the user's cart is
-						empty or not found.
+						<strong>Error (404 Not Found):</strong> If the user's cart does
+						not exist (e.g., empty or never created).
 					</p>
+					<pre><code>{
+    "message": "Cart not found for this user"
+}</code></pre>
 				</div>
 			</div>
 
@@ -1264,37 +1070,45 @@
 					</div>
 					<span class="badge get">GET</span>
 				</div>
-				<div class="endpoint-url">/api/cart/admin</div>
-				<div class="permissions">Permissions: <span>Admin</span></div>
+				<div class="endpoint-url">/api/cart/all</div>
+				<div class="permissions">Permissions: <span>Admin Only</span></div>
 
 				<h4>Request</h4>
-				<p>Requires an Admin JWT token.</p>
-				<pre><code>Authorization:  ADMIN_JWT_TOKEN</code></pre>
+				<p>Requires an Admin JWT token in the `Authorization` header.</p>
+				<pre><code>Authorization: ADMIN_JWT_TOKEN</code></pre>
 
 				<div class="response-example">
 					<h4>Response</h4>
-					<p>
-						<strong>Success (200 OK):</strong> Returns an array of all carts
-						in the system.
-					</p>
+					<p><strong>Success (200 OK):</strong> Returns a list of all carts.</p>
 					<pre><code>[
     {
-        "userId": "user_id_1",
-        "products": [ { "product_name": "A", "quantity": 1 } ],
-        "total_price": 50
-    },
-    {
-        "userId": "user_id_2",
-        "products": [ { "product_name": "B", "quantity": 3 } ],
-        "total_price": 150
+        "_id": "60d0fe4f74d0a10015b6b456",
+        "userId": {
+            "_id": "60d0fe4f74d0a10015b6b123",
+            "name": { "first": "John", "last": "Doe" },
+            "email": "john.doe@example.com"
+        },
+        "products": [
+            {
+                "productId": {
+                    "_id": "60d0fe4f74d0a10015b6b123",
+                    "product_name": "תות שדה",
+                    "price": 13.5
+                },
+                "quantity": 2
+            }
+        ],
+        "createdAt": "2023-10-26T10:00:00.000Z"
     }
 ]</code></pre>
 					<p>
-						<strong>Error (401 Unauthorized):</strong> Invalid or missing
-						token.
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
 					</p>
-					<p><strong>Error (403 Forbidden):</strong> Non-admin access.</p>
-					<p><strong>Error (404 Not Found):</strong> No carts found.</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> If the user is not an
+						Admin.
+					</p>
 				</div>
 			</div>
 
@@ -1305,42 +1119,42 @@
 					</div>
 					<span class="badge delete">DELETE</span>
 				</div>
-				<div class="endpoint-url">/api/cart/:product_name</div>
+				<div class="endpoint-url">/api/cart/:productId</div>
 				<div class="permissions">
 					Permissions: <span>Authenticated User</span>
 				</div>
 
 				<h4>Request</h4>
 				<p>
-					Deletes a specific product from the current user's cart.
-					`:product_name` is the name of the product to remove.
+					Product ID in the URL parameter. Requires an authenticated JWT token.
 				</p>
-				<pre><code>Authorization:  YOUR_JWT_TOKEN</code></pre>
-
-				<h4>Example with Axios</h4>
-				<pre><code class="language-js">axios
-    .delete("/api/cart/Coca-Cola", { headers: { Authorization: token } })
-    .then((res) => console.log(res.data))
-    .catch((err) => console.error(err.response.data));</code></pre>
+				<pre><code>Authorization: YOUR_JWT_TOKEN</code></pre>
 
 				<div class="response-example">
 					<h4>Response</h4>
 					<p>
-						<strong>Success (200 OK):</strong> Product successfully removed.
+						<strong>Success (200 OK):</strong> Returns the updated cart after
+						deletion.
 					</p>
 					<pre><code>{
-    "message": "Product removed from cart successfully"
+    "_id": "60d0fe4f74d0a10015b6b456",
+    "userId": "60d0fe4f74d0a10015b6b123",
+    "products": [],
+    "createdAt": "2023-10-26T10:00:00.000Z",
+    "updatedAt": "2023-10-26T10:00:00.000Z",
+    "__v": 0
 }</code></pre>
 					<p>
-						<strong>Error (404 Not Found):</strong> Cart or product not found.
+						<strong>Error (400 Bad Request):</strong> If the product is not in
+						the cart.
 					</p>
 					<p>
-						<strong>Error (403 Forbidden):</strong> Authenticated user doesn't
-						match the cart owner.
+						<strong>Error (401 Unauthorized):</strong> If the user is not
+						authenticated.
 					</p>
 					<p>
-						<strong>Error (401 Unauthorized):</strong> Invalid or missing
-						token.
+						<strong>Error (404 Not Found):</strong> If the product ID does not
+						exist or the cart does not exist.
 					</p>
 				</div>
 			</div>
@@ -1352,79 +1166,104 @@
 			<div class="endpoint" id="get-business-info">
 				<div class="endpoint-header">
 					<div class="endpoint-title">
-						<h3>Get Business Info</h3>
+						<h3>Get Business Information</h3>
 					</div>
 					<span class="badge get">GET</span>
 				</div>
-				<div class="endpoint-url">/api/business-info</div>
+				<div class="endpoint-url">/api/business</div>
 				<div class="permissions">Permissions: <span>Public</span></div>
 
 				<h4>Request</h4>
-				<pre><code class="language-js">axios
-    .get("/api/business-info")
-    .then((res) => console.log(res.data))
-    .catch((err) => console.error(err.response.data));</code></pre>
+				<p>No special request headers or body required.</p>
 
 				<div class="response-example">
-					<h4>Success (200 OK):</h4>
+					<h4>Response</h4>
+					<p>
+						<strong>Success (200 OK):</strong> Returns general business
+						information.
+					</p>
 					<pre><code>{
-    "business_name": "Shok Habena Market",
-    "phone": "03-1234567",
-    "email": "info@ShokHabena-market.com",
-    "address": "123 Main Street, Tel Aviv",
-    "hours": "Sun-Thu: 08:00-20:00"
+    "_id": "60d0fe4f74d0a10015b6b999",
+    "name": "Shok Habena Market",
+    "address": "123 Market St, Umm al-Fahm",
+    "phone": "050-1234567",
+    "email": "info@shokhabena.com",
+    "description": "Your local market for fresh produce.",
+    "social_media": {
+        "facebook": "http://facebook.com/shokhabena",
+        "instagram": "http://instagram.com/shokhabena"
+    },
+    "createdAt": "2023-10-26T10:00:00.000Z",
+    "updatedAt": "2023-10-26T10:00:00.000Z",
+    "__v": 0
 }</code></pre>
 					<p>
-						<strong>Error (400 Bad Request):</strong> Server error (invalid DB
-						state or query issue).
+						<strong>Error (404 Not Found):</strong> If business information is
+						not configured.
 					</p>
+					<pre><code>{
+    "message": "Business information not found"
+}</code></pre>
 				</div>
 			</div>
 
 			<div class="endpoint" id="update-business-info">
 				<div class="endpoint-header">
 					<div class="endpoint-title">
-						<h3>Update Business Info</h3>
+						<h3>Update Business Information</h3>
 					</div>
 					<span class="badge put">PUT</span>
 				</div>
-				<div class="endpoint-url">/api/business-info</div>
-				<div class="permissions">Permissions: <span>Admin</span></div>
+				<div class="endpoint-url">/api/business</div>
+				<div class="permissions">Permissions: <span>Admin Only</span></div>
 
 				<h4>Request Body</h4>
-				<p>Requires an Admin JWT token.</p>
+				<p>
+					Fields to update in the business information. Only the fields provided
+					will be updated.
+				</p>
 				<pre><code>{
-    "business_name": "Shok Habena Market (New Name)",
-    "phone": "03-9876543",
-    "email": "contact@ShokHabena-market.com",
-    "address": "456 Side Road, Jerusalem",
-    "hours": "Sun-Fri: 09:00-21:00"
+    "phone": "050-7654321",
+    "email": "support@shokhabena.com"
 }</code></pre>
-
-				<h4>Example with Axios</h4>
-				<pre><code class="language-js">axios
-    .put("/api/business-info", updatedBusinessInfo, {
-        headers: { Authorization: token },
-    })
-    .then((res) => console.log(res.data))
-    .catch((err) => console.error(err.response.data));</code></pre>
 
 				<div class="response-example">
 					<h4>Response</h4>
 					<p>
-						<strong>Success (200 OK):</strong> Updated business info document.
+						<strong>Success (200 OK):</strong> Returns the updated business
+						information.
 					</p>
 					<pre><code>{
-    "business_name": "Shok Habena Market (New Name)",
-    "phone": "03-9876543",
-    "email": "contact@ShokHabena-market.com",
-    "address": "456 Side Road, Jerusalem",
-    "hours": "Sun-Fri: 09:00-21:00"
+    "_id": "60d0fe4f74d0a10015b6b999",
+    "name": "Shok Habena Market",
+    "address": "123 Market St, Umm al-Fahm",
+    "phone": "050-7654321",
+    "email": "support@shokhabena.com",
+    "description": "Your local market for fresh produce.",
+    "social_media": {
+        "facebook": "http://facebook.com/shokhabena",
+        "instagram": "http://instagram.com/shokhabena"
+    },
+    "createdAt": "2023-10-26T10:00:00.000Z",
+    "updatedAt": "2023-10-26T10:00:00.000Z",
+    "__v": 0
 }</code></pre>
 					<p>
-						<strong>Error (401 Unauthorized):</strong> User is not an admin.
+						<strong>Error (400 Bad Request):</strong> If validation fails for
+						provided fields.
 					</p>
-					<p><strong>Error (400 Bad Request):</strong> Validation error.</p>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
+					</p>
+					<p>
+						<strong>Error (403 Forbidden):</strong> If the user is not an
+						Admin.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If business information is
+						not yet configured.
+					</p>
 				</div>
 			</div>
 
@@ -1441,62 +1280,60 @@
 				</div>
 				<div class="endpoint-url">/api/orders</div>
 				<div class="permissions">
-					Permissions: <span>Authenticated User (Client)</span>
+					Permissions: <span>Authenticated User</span>
 				</div>
 
 				<h4>Request Body</h4>
 				<p>
-					Creates a new order for the logged-in user, usually based on the
-					current cart contents.
+					The request body should contain the order details. This often includes
+					the list of products from the user's cart, shipping information, and
+					payment method.
 				</p>
 				<pre><code>{
     "shippingAddress": {
-        "city": "Tel Aviv",
-        "street": "Example St",
-        "houseNumber": "10"
+        "city": "Umm al-Fahm",
+        "street": "Main St",
+        "houseNumber": "15"
     },
-    "paymentMethod": "Credit Card" // or "Cash on Delivery", "PayPal" etc.
-    // The products will typically be pulled from the user's cart on the server side
+    "paymentMethod": "Credit Card" // or "Cash on Delivery"
+    // Other relevant order details might be derived from the user's cart
 }</code></pre>
-
-				<h4>Example with Axios</h4>
-				<pre><code class="language-js">axios.post("/api/orders", orderData, {
-    headers: {
-        Authorization: token,
-    },
-});</code></pre>
 
 				<div class="response-example">
 					<h4>Response</h4>
 					<p>
-						<strong>Success (201 Created):</strong> The created order object.
+						<strong>Success (201 Created):</strong> Returns the newly created
+						order details.
 					</p>
 					<pre><code>{
-    "_id": "60d0fe4f74d0a10015b6b123",
-    "userId": "user_id_123",
-    "orderNumber": "ORD-58362",
-    "orderDate": "2025-04-14T09:13:01.357Z",
+    "_id": "60d0fe4f74d0a10015b6c001",
+    "userId": "60d0fe4f74d0a10015b6b123",
     "products": [
-        { "product_name": "Product A", "quantity": 1, "price": 100 },
-        { "product_name": "Product B", "quantity": 2, "price": 50 }
+        {
+            "productId": "60d0fe4f74d0a10015b6b123",
+            "product_name": "תות שדה",
+            "quantity": 2,
+            "price": 13.5
+        }
     ],
-    "totalAmount": 200,
+    "totalPrice": 27,
+    "shippingAddress": {
+        "city": "Umm al-Fahm",
+        "street": "Main St",
+        "houseNumber": "15"
+    },
+    "paymentMethod": "Credit Card",
     "status": "Pending",
-    "shippingAddress": { ... },
-    "paymentMethod": "Credit Card"
+    "orderDate": "2023-10-26T10:30:00.000Z",
+    "__v": 0
 }</code></pre>
 					<p>
-						<strong>Real-time Notification:</strong> This action sends a
-						`newOrderNotification` event to admins and Moderators via
-						Socket.IO.
+						<strong>Error (400 Bad Request):</strong> If validation fails
+						(e.g., empty cart, invalid address).
 					</p>
 					<p>
-						<strong>Error (400 Bad Request):</strong> Validation or server
-						error (e.g., empty cart).
-					</p>
-					<p>
-						<strong>Error (401 Unauthorized):</strong> Invalid or missing
-						token.
+						<strong>Error (401 Unauthorized):</strong> If the user is not
+						authenticated.
 					</p>
 				</div>
 			</div>
@@ -1508,51 +1345,53 @@
 					</div>
 					<span class="badge get">GET</span>
 				</div>
-				<div class="endpoint-url">/api/orders</div>
+				<div class="endpoint-url">/api/orders/all</div>
 				<div class="permissions">Permissions: <span>Admin, Moderator</span></div>
 
 				<h4>Request</h4>
 				<p>
-					Retrieve all orders from all users. Requires Admin or Moderator token.
+					Requires an Admin or Moderator JWT token in the `Authorization`
+					header.
 				</p>
-				<pre><code>Authorization:  ADMIN_OR_MOD_TOKEN</code></pre>
-
-				<h4>Example with Axios</h4>
-				<pre><code class="language-js">axios.get("/api/orders", {
-    headers: {
-        Authorization: adminToken,
-    },
-});</code></pre>
+				<pre><code>Authorization: YOUR_JWT_TOKEN</code></pre>
 
 				<div class="response-example">
 					<h4>Response</h4>
-					<p><strong>Success (200 OK):</strong> Array of all orders.</p>
+					<p>
+						<strong>Success (200 OK):</strong> Returns a list of all orders.
+					</p>
 					<pre><code>[
     {
-        "_id": "order_id_1",
-        "userId": "user_id_1",
-        "orderNumber": "ORD-12345",
-        "totalAmount": 150,
-        "status": "Delivered",
-        // ... more order details
-    },
-    {
-        "_id": "order_id_2",
-        "userId": "user_id_2",
-        "orderNumber": "ORD-67890",
-        "totalAmount": 250,
+        "_id": "60d0fe4f74d0a10015b6c001",
+        "userId": {
+            "_id": "60d0fe4f74d0a10015b6b123",
+            "name": { "first": "John", "last": "Doe" },
+            "email": "john.doe@example.com"
+        },
+        "products": [
+            {
+                "productId": {
+                    "_id": "60d0fe4f74d0a10015b6b123",
+                    "product_name": "תות שדה"
+                },
+                "quantity": 2,
+                "price": 13.5
+            }
+        ],
+        "totalPrice": 27,
         "status": "Pending",
-        // ... more order details
+        "orderDate": "2023-10-26T10:30:00.000Z"
     }
 ]</code></pre>
 					<p>
-						<strong>Error (401 Unauthorized):</strong> Invalid or missing
-						token.
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
 					</p>
 					<p>
-						<strong>Error (403 Forbidden):</strong> User is not an Admin or
-						Moderator.
+						<strong>Error (403 Forbidden):</strong> If the user is not an
+						Admin or Moderator.
 					</p>
+					<p><strong>Error (404 Not Found):</strong> If no orders are found.</p>
 				</div>
 			</div>
 
@@ -1563,49 +1402,51 @@
 					</div>
 					<span class="badge get">GET</span>
 				</div>
-				<div class="endpoint-url">/api/orders/:userId</div>
+				<div class="endpoint-url">/api/orders/user/:userId</div>
 				<div class="permissions">
-					Permissions: <span>Admin, Moderator, or Owner User / Client</span>
+					Permissions: <span>Admin, Moderator, or Client (self)</span>
 				</div>
 
 				<h4>Request</h4>
-				<p>
-					Get all orders for a specific user. Requires Admin, Moderator, or the
-					owner user's token.
-				</p>
-				<pre><code>Authorization:  YOUR_JWT_TOKEN</code></pre>
-
-				<h4>Example with Axios</h4>
-				<pre><code class="language-js">axios.get(`/api/orders/${userId}`, {
-    headers: {
-        Authorization: token,
-    },
-});</code></pre>
+				<p>User ID in the URL parameter. Requires an authenticated JWT token.</p>
+				<pre><code>Authorization: YOUR_JWT_TOKEN</code></pre>
 
 				<div class="response-example">
 					<h4>Response</h4>
-					<p><strong>Success (200 OK):</strong> Array of user's orders.</p>
+					<p>
+						<strong>Success (200 OK):</strong> Returns a list of orders for
+						the specified user.
+					</p>
 					<pre><code>[
     {
-        "_id": "order_id_user_1",
-        "userId": "specific_user_id",
-        "orderNumber": "ORD-11223",
-        "totalAmount": 120,
-        "status": "Processing",
-        // ... more order details
+        "_id": "60d0fe4f74d0a10015b6c001",
+        "userId": "60d0fe4f74d0a10015b6b123",
+        "products": [
+            {
+                "productId": {
+                    "_id": "60d0fe4f74d0a10015b6b123",
+                    "product_name": "תות שדה"
+                },
+                "quantity": 2,
+                "price": 13.5
+            }
+        ],
+        "totalPrice": 27,
+        "status": "Pending",
+        "orderDate": "2023-10-26T10:30:00.000Z"
     }
 ]</code></pre>
 					<p>
-						<strong>Error (401 Unauthorized):</strong> Invalid or missing
-						token.
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
 					</p>
 					<p>
-						<strong>Error (403 Forbidden):</strong> User does not have
-						permission to access these orders.
+						<strong>Error (403 Forbidden):</strong> If the user doesn't have
+						permission to view these orders.
 					</p>
 					<p>
-						<strong>Error (404 Not Found):</strong> No orders found for this
-						user ID.
+						<strong>Error (404 Not Found):</strong> If no orders are found for
+						the user.
 					</p>
 				</div>
 			</div>
@@ -1617,48 +1458,64 @@
 					</div>
 					<span class="badge get">GET</span>
 				</div>
-				<div class="endpoint-url">/api/orders/details/:orderNumber</div>
+				<div class="endpoint-url">/api/orders/:orderId</div>
 				<div class="permissions">
-					Permissions: <span>Authenticated User (owner), Admin, Moderator</span>
+					Permissions:
+					<span
+						>Admin, Moderator, or Client (self if order belongs to them)</span
+					>
 				</div>
 
 				<h4>Request</h4>
-				<p>
-					Retrieve a specific order by its number. Requires a valid JWT token.
-				</p>
-				<pre><code>Authorization:  YOUR_JWT_TOKEN</code></pre>
-
-				<h4>Example with Axios</h4>
-				<pre><code class="language-js">axios.get(`/api/orders/details/${orderNumber}`, {
-    headers: {
-        Authorization: token,
-    },
-});</code></pre>
+				<p>Order ID in the URL parameter. Requires an authenticated JWT token.</p>
+				<pre><code>Authorization: YOUR_JWT_TOKEN</code></pre>
 
 				<div class="response-example">
 					<h4>Response</h4>
-					<p><strong>Success (200 OK):</strong> Full order data.</p>
-					<pre><code>{
-    "_id": "order_id_specific",
-    "userId": "user_id_123",
-    "orderNumber": "ORD-58362",
-    "orderDate": "2025-04-14T09:13:01.357Z",
-    "customer": { ... },
-    "products": [ ... ],
-    "totalAmount": 92.6,
-    "status": "Processing",
-    "deliveryFee": 25,
-    "discount": 0,
-    "payment": "Credit Card"
-}</code></pre>
-					<p><strong>Error (404 Not Found):</strong> Order not found.</p>
 					<p>
-						<strong>Error (401 Unauthorized):</strong> Invalid or missing
-						token.
+						<strong>Success (200 OK):</strong> Returns details of the
+						specified order.
+					</p>
+					<pre><code>{
+    "_id": "60d0fe4f74d0a10015b6c001",
+    "userId": {
+        "_id": "60d0fe4f74d0a10015b6b123",
+        "name": { "first": "John", "last": "Doe" },
+        "email": "john.doe@example.com"
+    },
+    "products": [
+        {
+            "productId": {
+                "_id": "60d0fe4f74d0a10015b6b123",
+                "product_name": "תות שדה",
+                "price": 13.5
+            },
+            "quantity": 2,
+            "priceAtOrder": 13.5 // Price at the time of order
+        }
+    ],
+    "totalPrice": 27,
+    "shippingAddress": {
+        "city": "Umm al-Fahm",
+        "street": "Main St",
+        "houseNumber": "15"
+    },
+    "paymentMethod": "Credit Card",
+    "status": "Pending",
+    "orderDate": "2023-10-26T10:30:00.000Z",
+    "__v": 0
+}</code></pre>
+					<p>
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
 					</p>
 					<p>
-						<strong>Error (403 Forbidden):</strong> User does not have
-						permission to access this order.
+						<strong>Error (403 Forbidden):</strong> If the user doesn't have
+						permission to view this order.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If the order ID does not
+						exist.
 					</p>
 				</div>
 			</div>
@@ -1670,49 +1527,59 @@
 					</div>
 					<span class="badge patch">PATCH</span>
 				</div>
-				<div class="endpoint-url">/api/orders/:orderNumber</div>
+				<div class="endpoint-url">/api/orders/status/:orderId</div>
 				<div class="permissions">Permissions: <span>Admin, Moderator</span></div>
 
 				<h4>Request Body</h4>
-				<p>
-					Update the status of a specific order. Requires Admin or Moderator
-					token.
-				</p>
+				<p>New status for the order.</p>
 				<pre><code>{
-    "status": "Delivered" // Possible statuses: "Pending", "Processing", "Shipped", "Delivered", "Cancelled"
+    "status": "Processing" // or "Shipped", "Delivered", "Cancelled"
 }</code></pre>
-
-				<h4>Example with Axios</h4>
-				<pre><code class="language-js">axios.patch(
-    `/api/orders/${orderNumber}`,
-    { status: "Delivered" },
-    { headers: { Authorization: adminToken } }
-);</code></pre>
 
 				<div class="response-example">
 					<h4>Response</h4>
-					<p><strong>Success (200 OK):</strong> Updated order object.</p>
+					<p>
+						<strong>Success (200 OK):</strong> Returns the updated order
+						details.
+					</p>
 					<pre><code>{
-    "_id": "order_id_specific",
-    "userId": "user_id_123",
-    "orderNumber": "ORD-58362",
-    "status": "Delivered",
-    // ... rest of the updated order data
+    "_id": "60d0fe4f74d0a10015b6c001",
+    "userId": "60d0fe4f74d0a10015b6b123",
+    "products": [
+        {
+            "productId": "60d0fe4f74d0a10015b6b123",
+            "product_name": "תות שדה",
+            "quantity": 2,
+            "price": 13.5
+        }
+    ],
+    "totalPrice": 27,
+    "shippingAddress": {
+        "city": "Umm al-Fahm",
+        "street": "Main St",
+        "houseNumber": "15"
+    },
+    "paymentMethod": "Credit Card",
+    "status": "Processing",
+    "orderDate": "2023-10-26T10:30:00.000Z",
+    "__v": 0
 }</code></pre>
 					<p>
-						<strong>Real-time Notification:</strong> Sends a
-						`orderStatusUpdate` Socket.IO event to the client whose order
-						status has changed.
+						<strong>Error (400 Bad Request):</strong> If the new status is
+						invalid.
 					</p>
 					<p>
-						<strong>Error (401 Unauthorized):</strong> Invalid or missing
-						token.
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
 					</p>
 					<p>
-						<strong>Error (403 Forbidden):</strong> User is not an Admin or
-						Moderator.
+						<strong>Error (403 Forbidden):</strong> If the user is not an
+						Admin or Moderator.
 					</p>
-					<p><strong>Error (404 Not Found):</strong> Order not found.</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If the order ID does not
+						exist.
+					</p>
 				</div>
 			</div>
 
@@ -1723,137 +1590,53 @@
 			<div class="endpoint" id="get-discounted-products">
 				<div class="endpoint-header">
 					<div class="endpoint-title">
-						<h3>Get Discounted Products</h3>
+						<h3>Get All Discounted Products</h3>
 					</div>
 					<span class="badge get">GET</span>
 				</div>
 				<div class="endpoint-url">/api/discounts</div>
 				<div class="permissions">Permissions: <span>Public</span></div>
 
-				<h4>Description</h4>
-				<p>
-					Retrieve up to 20 products that are currently on sale (<code
-						>sale: true</code
-					>).
-				</p>
-
 				<h4>Request</h4>
-				<pre><code class="language-js">axios
-    .get("/api/discounts")
-    .then((response) => {
-        console.log("Discounted products:", response.data);
-    })
-    .catch((error) => {
-        console.error("Error fetching discounts:", error.response.data);
-    });</code></pre>
+				<p>No special request headers or body required.</p>
 
 				<div class="response-example">
 					<h4>Response</h4>
 					<p>
-						<strong>Success (200 OK):</strong> Array of up to 20 discounted
-						products.
+						<strong>Success (200 OK):</strong> Returns a list of all products
+						that are currently on sale (<code>sale: true</code>).
 					</p>
 					<pre><code>[
     {
-        "_id": "product_id_1",
-        "product_name": "תפוח אדמה",
+        "_id": "60a7e0c8b0e7c10015a1b2c3",
+        "product_name": "עגבנייה",
         "category": "Vegetable",
-        "price": 8.0,
+        "price": 5.99,
+        "quantity_in_stock": 200,
+        "description": "Ripe red tomatoes.",
+        "image_url": "https://example.com/tomato.jpg",
         "sale": true,
-        "discount": 20, // 20% discount
-        "image_url": "https://example.com/potato.jpg"
+        "discount": 15
     },
     {
-        "_id": "product_id_2",
-        "product_name": "מים מינרליים",
-        "category": "Beverages",
-        "price": 5.0,
+        "_id": "60d0fe4f74d0a10015b6b123",
+        "product_name": "תות שדה",
+        "category": "Fruit",
+        "price": 13.5,
+        "quantity_in_stock": 87,
+        "description": "Fresh and sweet strawberries.",
+        "image_url": "https://example.com/strawberry.jpg",
         "sale": true,
-        "discount": 10,
-        "image_url": "https://example.com/water.jpg"
+        "discount": 10
     }
 ]</code></pre>
 					<p>
-						<strong>Error (404 Not Found):</strong> No discounted products
-						available.
+						<strong>Error (404 Not Found):</strong> If no discounted products
+						are found.
 					</p>
 					<pre><code>{
     "message": "No discounted products found"
 }</code></pre>
-				</div>
-			</div>
-
-			<div class="endpoint" id="create-discount">
-				<div class="endpoint-header">
-					<div class="endpoint-title">
-						<h3>Create Discount</h3>
-					</div>
-					<span class="badge post">POST</span>
-				</div>
-				<div class="endpoint-url">/api/discounts</div>
-				<div class="permissions">Permissions: <span>Admin</span></div>
-
-				<h4>Request Body</h4>
-				<p>
-					Create a new discount. Note: This assumes discounts are applied to
-					products and update `sale` and `discount` fields on products.
-				</p>
-				<pre><code>{
-    "product_name": "Specific Product Name", // Optional: to apply discount to a specific product
-    "category": "Fruit", // Optional: to apply discount to a whole category
-    "discount_percentage": 15,
-    "start_date": "2025-06-01T00:00:00Z",
-    "end_date": "2025-06-15T23:59:59Z",
-    "description": "Summer sale on fruits!"
-}</code></pre>
-
-				<div class="response-example">
-					<h4>Response</h4>
-					<p>
-						<strong>Success (201 Created):</strong> Returns the created
-						discount object or updated product(s).
-					</p>
-					<pre><code>{
-    "message": "Discount applied successfully",
-    "updatedProductsCount": 5
-}</code></pre>
-					<p>
-						<strong>Error (400 Bad Request):</strong> Invalid data or
-						product/category not found.
-					</p>
-					<p>
-						<strong>Error (401 Unauthorized):</strong> User is not an Admin.
-					</p>
-				</div>
-			</div>
-
-			<div class="endpoint" id="delete-discount">
-				<div class="endpoint-header">
-					<div class="endpoint-title">
-						<h3>Delete Discount</h3>
-					</div>
-					<span class="badge delete">DELETE</span>
-				</div>
-				<div class="endpoint-url">/api/discounts/:id</div>
-				<div class="permissions">Permissions: <span>Admin</span></div>
-
-				<h4>Request</h4>
-				<p>
-					Delete a discount by its ID. This will likely revert products to their
-					original prices.
-				</p>
-				<pre><code>Authorization:  ADMIN_TOKEN</code></pre>
-
-				<div class="response-example">
-					<h4>Response</h4>
-					<p>
-						<strong>Success (204 No Content):</strong> Discount successfully
-						removed.
-					</p>
-					<p>
-						<strong>Error (401 Unauthorized):</strong> User is not an Admin.
-					</p>
-					<p><strong>Error (404 Not Found):</strong> Discount not found.</p>
 				</div>
 			</div>
 
@@ -1864,71 +1647,58 @@
 			<div class="endpoint" id="create-receipt">
 				<div class="endpoint-header">
 					<div class="endpoint-title">
-						<h3>Create Receipt</h3>
+						<h3>Create a New Receipt</h3>
 					</div>
 					<span class="badge post">POST</span>
 				</div>
-				<div class="endpoint-url">/api/receipts</div>
-				<div class="permissions">Permissions: <span>Admin</span></div>
+				<div class="endpoint-url">/api/receipts/:orderId</div>
+				<div class="permissions">Permissions: <span>Admin, Moderator</span></div>
 
-				<h4>Description</h4>
+				<h4>Request</h4>
 				<p>
-					This endpoint is typically used internally by the system (e.g., after
-					an order is successfully processed) to generate a receipt document.
-					Manual creation might require Admin privileges.
+					Order ID in the URL parameter for which to generate a receipt.
+					Requires an Admin or Moderator JWT token.
 				</p>
-
-				<h4>Request Body</h4>
-				<pre><code>{
-    "userId": "user_id_example",
-    "orderNumber": "ORD-58362",
-    "orderDate": "2025-04-14T09:13:01.357+00:00",
-    "customer": {
-        "name": { "first": "jon", "last": "bill" },
-        "email": "jon@gmail.com",
-        "phone": { "phone_1": "053835458", "phone_2": "" },
-        "address": { "city": "Tel aviv", "street": "bengorion", "houseNumber": "29" }
-    },
-    "products": [
-        { "product_name": "חטיפי חמאה", "quantity": 2, "product_price": 10.8 },
-        { "product_name": "סנדוויצ'ים מוכנים", "quantity": 4, "product_price": 48 },
-        { "product_name": "סוכריות גומי", "quantity": 2, "product_price": 8.8 }
-    ],
-    "payment": "Credit Card", // Corrected from "false"
-    "deliveryFee": 25,
-    "discount": 0,
-    "totalAmount": 92.6,
-    "businessInfo": {
-        "name": "שוק הפינה פירות ירקות ועוד",
-        "phone": "0538346915",
-        "email": "support@fruitsandveg.com",
-        "address": "שדרות ירושלים 45, תל אביב"
-    }
-}</code></pre>
+				<pre><code>Authorization: YOUR_JWT_TOKEN</code></pre>
 
 				<div class="response-example">
 					<h4>Response</h4>
 					<p>
 						<strong>Success (201 Created):</strong> Returns the newly created
-						receipt object.
+						receipt.
 					</p>
-					<pre><code>{
-    "_id": "receipt_id_example",
-    "userId": "user_id_example",
-    "orderNumber": "ORD-58362",
-    // ... full receipt data ...
-}</code></pre>
+					<pre>
+            <code>{
+    "_id": "60d0fe4f74d0a10015b6d001",
+    "orderId": "60d0fe4f74d0a10015b6c001",
+    "userId": "60d0fe4f74d0a10015b6b123",
+    "receiptNumber": "REC-20231026-001",
+    "issueDate": "2023-10-26T10:45:00.000Z",
+    "totalAmount": 27,
+    "products": [
+        {
+            "product_name": "תות שדה",
+            "quantity": 2,
+            "price": 13.5
+        }
+    ],
+    "__v": 0
+  }</code></pre>
 					<p>
-						<strong>Error (400 Bad Request):</strong> Validation errors or
-						missing data.
+						<strong>Error (400 Bad Request):</strong> If a receipt already
+						exists for the order or the order is not yet delivered.
 					</p>
 					<p>
-						<strong>Error (401 Unauthorized):</strong> Invalid or missing
-						token.
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
 					</p>
 					<p>
-						<strong>Error (403 Forbidden):</strong> User is not an Admin if
-						manual creation is restricted.
+						<strong>Error (403 Forbidden):</strong> If the user is not an
+						Admin or Moderator.
+					</p>
+					<p>
+						<strong>Error (404 Not Found):</strong> If the order ID does not
+						exist.
 					</p>
 				</div>
 			</div>
@@ -1940,15 +1710,12 @@
 					</div>
 					<span class="badge get">GET</span>
 				</div>
-				<div class="endpoint-url">/api/receipts</div>
-				<div class="permissions">Permissions: <span>Admin</span></div>
+				<div class="endpoint-url">/api/receipts/all</div>
+				<div class="permissions">Permissions: <span>Admin, Moderator</span></div>
 
 				<h4>Request</h4>
-				<p>Fetch all receipts. Requires an Admin JWT token.</p>
-				<pre><code class="language-js">axios
-    .get("/api/receipts", { headers: { Authorization: adminToken } })
-    .then((response) => console.log(response.data))
-    .catch((error) => console.error(error.response.data));</code></pre>
+				<p>Requires an Admin or Moderator JWT token.</p>
+				<pre><code>Authorization: YOUR_JWT_TOKEN</code></pre>
 
 				<div class="response-example">
 					<h4>Response</h4>
@@ -1957,24 +1724,30 @@
 					</p>
 					<pre><code>[
     {
-        "_id": "receipt_id_1",
-        "orderNumber": "ORD-12345",
-        "customer": { "name": { "first": "Alice" } },
-        "totalAmount": 100,
-        // ... more receipt details
-    },
-    // ... more receipts
+        "_id": "60d0fe4f74d0a10015b6d001",
+        "orderId": {
+            "_id": "60d0fe4f74d0a10015b6c001",
+            "totalPrice": 27
+        },
+        "userId": {
+            "_id": "60d0fe4f74d0a10015b6b123",
+            "name": { "first": "John", "last": "Doe" }
+        },
+        "receiptNumber": "REC-20231026-001",
+        "issueDate": "2023-10-26T10:45:00.000Z",
+        "totalAmount": 27
+    }
 ]</code></pre>
 					<p>
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
+					</p>
+					<p>
 						<strong>Error (403 Forbidden):</strong> If the user is not an
-						Admin.
+						Admin or Moderator.
 					</p>
 					<p>
 						<strong>Error (404 Not Found):</strong> If no receipts are found.
-					</p>
-					<p>
-						<strong>Error (401 Unauthorized):</strong> Invalid or missing
-						token.
 					</p>
 				</div>
 			</div>
@@ -1986,82 +1759,55 @@
 					</div>
 					<span class="badge get">GET</span>
 				</div>
-				<div class="endpoint-url">/api/receipts/:userId</div>
+				<div class="endpoint-url">/api/receipts/user/:userId</div>
 				<div class="permissions">
-					Permissions: <span>Authenticated User (self), Admin</span>
+					Permissions: <span>Admin, Moderator, or Client (self)</span>
 				</div>
 
 				<h4>Request</h4>
-				<p>
-					Fetch receipts for a specific user. User can only access their own
-					receipts or an Admin can access any user's receipts.
-				</p>
-				<pre><code class="language-js">axios
-    .get("/api/receipts/userId123", { headers: { Authorization: userToken } })
-    .then((response) => console.log(response.data))
-    .catch((error) => console.error(error.response.data));</code></pre>
+				<p>User ID in the URL parameter. Requires an authenticated JWT token.</p>
+				<pre><code>Authorization: YOUR_JWT_TOKEN</code></pre>
 
 				<div class="response-example">
 					<h4>Response</h4>
 					<p>
-						<strong>Success (200 OK):</strong> Returns a list of the user's
-						receipts.
+						<strong>Success (200 OK):</strong> Returns a list of receipts for
+						the specified user.
 					</p>
 					<pre><code>[
     {
-        "_id": "receipt_id_user_1",
-        "userId": "userId123",
-        "orderNumber": "ORD-001",
-        "totalAmount": 50,
-        // ... more receipt details
+        "_id": "60d0fe4f74d0a10015b6d001",
+        "orderId": {
+            "_id": "60d0fe4f74d0a10015b6c001",
+            "totalPrice": 27
+        },
+        "userId": "60d0fe4f74d0a10015b6b123",
+        "receiptNumber": "REC-20231026-001",
+        "issueDate": "2023-10-26T10:45:00.000Z",
+        "totalAmount": 27,
+        "products": [
+            {
+                "product_name": "תות שדה",
+                "quantity": 2,
+                "price": 13.5
+            }
+        ]
     }
 ]</code></pre>
 					<p>
-						<strong>Error (401 Unauthorized):</strong> If the token is invalid
-						or missing.
+						<strong>Error (401 Unauthorized):</strong> If the token is missing
+						or invalid.
 					</p>
 					<p>
-						<strong>Error (403 Forbidden):</strong> If the user attempts to
-						access receipts of another user without proper authorization.
+						<strong>Error (403 Forbidden):</strong> If the user doesn't have
+						permission to view these receipts.
 					</p>
 					<p>
 						<strong>Error (404 Not Found):</strong> If no receipts are found
-						for the given user.
+						for the user.
 					</p>
 				</div>
 			</div>
 		</div>
-
-		<script>
-			// Smooth scrolling for anchor links
-			document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-				anchor.addEventListener("click", function (e) {
-					e.preventDefault();
-					document.querySelector(this.getAttribute("href")).scrollIntoView({
-						behavior: "smooth",
-					});
-				});
-			});
-
-			// Highlight current section in sidebar
-			window.addEventListener("scroll", function () {
-				const sections = document.querySelectorAll("h2[id], .endpoint");
-				let currentSection = "";
-
-				sections.forEach((section) => {
-					const sectionTop = section.offsetTop;
-					if (pageYOffset >= sectionTop - 150) {
-						currentSection = section.id;
-					}
-				});
-
-				document.querySelectorAll("#sidebar a").forEach((link) => {
-					link.classList.remove("active");
-					if (link.getAttribute("href") === `#${currentSection}`) {
-						link.classList.add("active");
-					}
-				});
-			});
-		</script>
 	</body>
 </html>
